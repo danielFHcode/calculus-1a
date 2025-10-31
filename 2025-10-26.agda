@@ -3,7 +3,7 @@ module 2025-10-26 where
 open Agda.Primitive
 
 infix 3 _＝_
-data _＝_ {ℓ} {A : Set ℓ} : A → A → Set where
+data _＝_ {ℓ} {A : Set ℓ} : A → A → Set ℓ where
   reflexivity : ∀ x → x ＝ x
 
 data ⊥ : Set where

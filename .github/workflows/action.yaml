@@ -11,10 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - run: sudo apt update
+      # - run: sudo apt update
 
-      - run: sudo apt install snapd
-      - run: sudo snap install typst
+      # - run: sudo apt install snapd
+      # - run: sudo snap install typst
+
+      - uses: typst-community/setup-typst@v4
       - run: typst compile 2025-10-26.typ
       - run: typst compile 2025-10-29-tergul.typ
 
