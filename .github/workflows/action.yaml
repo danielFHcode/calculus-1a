@@ -18,7 +18,8 @@ jobs:
       - run: typst compile 2025-10-26.typ
       - run: typst compile 2025-10-29-tergul.typ
 
-      - run: sudo apt install agda
+      - uses: wenkokke/setup-agda@v2
+      # - run: sudo apt install agda
       - run: agda --allow-unsolved-metas *.agda
 
       - name: Upload PDF file
