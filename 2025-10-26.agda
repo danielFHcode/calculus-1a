@@ -50,6 +50,10 @@ infix 3 _⊆_
 _⊆_ : ∀ {ℓ′ ℓ} {A : Set ℓ′} → Subset A ℓ → Subset A ℓ → Set (ℓ′ ⊔ ℓ)
 A ⊆ B = ∀ {x} → A ∋ x → B ∋ x
 
+record Lift {ℓ′} ℓ (A : Set ℓ′) : Set (ℓ′ ⊔ ℓ) where
+  constructor lift
+  field lower : A
+
 infixr 2 Σ
 infixr 0 _,_
 record Σ {ℓ₁ ℓ₂} (A : Set ℓ₁) (P : A → Set ℓ₂) : Set (ℓ₁ ⊔ ℓ₂) where
@@ -62,6 +66,11 @@ syntax Σ A (λ x → B) = Σ x ∈ A ∧ B
 infixr 2 _∧_
 _∧_ : ∀ {ℓ₁ ℓ₂} → Set ℓ₁ → Set ℓ₂ → Set (ℓ₁ ⊔ ℓ₂)
 A ∧ B = Σ _ ∈ A ∧ B
+
+infixr 2 ∃!
+∃! : ∀ {ℓ₁ ℓ₂} (A : Set ℓ₁) → (A → Set ℓ₂) → Set (ℓ₁ ⊔ ℓ₂)
+∃! A P = Σ x ∈ A ∧ (P x ∧ ∀ {y} → P y → x ＝ y)
+syntax ∃! A (λ x → B) = ∃! x ∈ A ∧ B
 
 record RealAxioms ℓ : Set (lsuc ℓ) where
   infixl 4 _+_
@@ -125,8 +134,8 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
       |> =transitivity (symmetry (∙neutral x))
       |> =transitivity ＿ (∙neutral z)
         ∶ x ＝ z
-  conclusion-2-7 : ∀ x (nz : ¬ x ＝ 0′) y → x ∙ y ＝ 1′ → y ＝ x ⁻¹⟨ nz ⟩
-  conclusion-2-7 x nz y ⋆ =
+  conclusion-2-7 : ∀ {x y} (nz : ¬ x ＝ 0′) → x ∙ y ＝ 1′ → y ＝ x ⁻¹⟨ nz ⟩
+  conclusion-2-7 {x} {y} nz ⋆ =
     ∙commutativity y x
       ∶ y ∙ x ＝ x ∙ y
     ⟫ ⋆
@@ -172,9 +181,9 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
   _≤_ : ℝ → ℝ → Set ℓ
   x ≤ y = ¬ y < x
   IsUpperBound : Subset ℝ ℓ → ℝ → Set (ℓ ⊔ ℓ)
-  IsUpperBound A α = ∀ {x} → A ∋ x → x ≤ α
+  IsUpperBound A α = ∀ x → A ∋ x → x ≤ α
   IsLowerBound : Subset ℝ ℓ → ℝ → Set (ℓ ⊔ ℓ)
-  IsLowerBound A α = ∀ {x} → A ∋ x → α ≤ x
+  IsLowerBound A α = ∀ x → A ∋ x → α ≤ x
   BoundedFromAbove : Subset ℝ ℓ → Set (ℓ ⊔ ℓ)
   BoundedFromAbove A = Σ α ∈ ℝ ∧ IsUpperBound A α
   BoundedFromBellow : Subset ℝ ℓ → Set (ℓ ⊔ ℓ)
@@ -185,7 +194,7 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
   IsTightUpperBound A α = IsUpperBound A α ∧ ∀ ε → 0′ < ε → Σ x ∈ ℝ ∧ (A ∋ x ∧ α - ε < x)
   IsTightLowerBound : Subset ℝ ℓ → ℝ → Set (ℓ ⊔ ℓ ⊔ ℓ)
   IsTightLowerBound A α = IsLowerBound A α ∧ ∀ ε → 0′ < ε → Σ x ∈ ℝ ∧ (A ∋ x ∧ x < α + ε)
-  field completeness : ∀ {A x α} → A ∋ x → IsUpperBound A α → Σ β ∈ ℝ ∧ IsTightUpperBound A β
+  field completeness : ∀ A x α → A ∋ x → IsUpperBound A α → Σ β ∈ ℝ ∧ IsTightUpperBound A β
   helper-4-2 : ∀ x → - - x ＝ x
   helper-4-2 x =
       +commutativity (- x) x
@@ -229,28 +238,26 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
             ∶ - - α < x
           |> substitute (_< x) (helper-4-2 α)
             ∶ α < x
-          |> ubα (xia ∶ A ∋ x)
+          |> ubα x (xia ∶ A ∋ x)
             ∶ ⊥
   ---- quick & dirty definition of the rationals (not part of the lesson) ----
-  data ℕ⁺′ : Set where
-    one : ℕ⁺′
-    suc : ℕ⁺′ → ℕ⁺′
-  infixl 6 _∙1ℕ⁺′
-  _∙1ℕ⁺′ : ℕ⁺′ → ℝ
-  one ∙1ℕ⁺′ = 1′
-  suc n ∙1ℕ⁺′ = 1′ + n ∙1ℕ⁺′
-  ℕ⁺ = [ x ∈ ℝ ∣ Σ n ∈ ℕ⁺′ ∧ x ＝ n ∙1ℕ⁺′ ]
-  data ℤ′ : Set where
-    positive : ℕ⁺′ → ℤ′
-    zero : ℤ′
-    negative : ℕ⁺′ → ℤ′
-  infix 6 _∙1ℤ′
-  _∙1ℤ′ : ℤ′ → ℝ
-  positive n ∙1ℤ′ = n ∙1ℕ⁺′
-  zero ∙1ℤ′ = 0′
-  negative n ∙1ℤ′ = - (n ∙1ℕ⁺′)
-  ℤ = [ x ∈ ℝ ∣ Σ k ∈ ℤ′ ∧ x ＝ k ∙1ℤ′ ]
-  helper-rationals-1 : ∀ n → 0′ < n ∙1ℕ⁺′
+  data ℕ⁺ : Set where
+    one : ℕ⁺
+    suc : ℕ⁺ → ℕ⁺
+  infixl 6 _∙1ℕ⁺
+  _∙1ℕ⁺ : ℕ⁺ → ℝ
+  one ∙1ℕ⁺ = 1′
+  suc n ∙1ℕ⁺ = 1′ + n ∙1ℕ⁺
+  data ℤ : Set where
+    positive : ℕ⁺ → ℤ
+    zero : ℤ
+    negative : ℕ⁺ → ℤ
+  infix 6 _∙1ℤ
+  _∙1ℤ : ℤ → ℝ
+  positive n ∙1ℤ = n ∙1ℕ⁺
+  zero ∙1ℤ = 0′
+  negative n ∙1ℤ = - (n ∙1ℕ⁺)
+  helper-rationals-1 : ∀ n → 0′ < n ∙1ℕ⁺
   helper-rationals-1 one =
     (λ ⋆ →
       let cont =
@@ -280,27 +287,27 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
       ∶ 0′ < 1′
   helper-rationals-1 (suc n) =
     helper-rationals-1 n
-      ∶ 0′ < n ∙1ℕ⁺′
+      ∶ 0′ < n ∙1ℕ⁺
     |> +order 1′
-      ∶ 0′ + 1′ < n ∙1ℕ⁺′ + 1′
-    |> substitute (0′ + 1′ <_) (+commutativity (n ∙1ℕ⁺′) 1′)
-      ∶ 0′ + 1′ < 1′ + n ∙1ℕ⁺′
-    |> substitute (_< 1′ + n ∙1ℕ⁺′) (+commutativity 0′ 1′)
-      ∶ 1′ + 0′ < 1′ + n ∙1ℕ⁺′
-    |> substitute (_< 1′ + n ∙1ℕ⁺′) (+neutral 1′)
-      ∶ 1′ < 1′ + n ∙1ℕ⁺′
+      ∶ 0′ + 1′ < n ∙1ℕ⁺ + 1′
+    |> substitute (0′ + 1′ <_) (+commutativity (n ∙1ℕ⁺) 1′)
+      ∶ 0′ + 1′ < 1′ + n ∙1ℕ⁺
+    |> substitute (_< 1′ + n ∙1ℕ⁺) (+commutativity 0′ 1′)
+      ∶ 1′ + 0′ < 1′ + n ∙1ℕ⁺
+    |> substitute (_< 1′ + n ∙1ℕ⁺) (+neutral 1′)
+      ∶ 1′ < 1′ + n ∙1ℕ⁺
     |> transitivity (helper-rationals-1 one)
-      ∶ 0′ < 1′ + n ∙1ℕ⁺′
-  helper-rationals-2 : ∀ n → ¬ n ∙1ℕ⁺′ ＝ 0′
+      ∶ 0′ < 1′ + n ∙1ℕ⁺
+  helper-rationals-2 : ∀ n → ¬ n ∙1ℕ⁺ ＝ 0′
   helper-rationals-2 n ⋆ =
     antisymmetry cont cont
     where cont : 0′ < 0′
           cont =
             helper-rationals-1 n
-              ∶ 0′ < n ∙1ℕ⁺′
-            |> substitute (0′ <_) (⋆ ∶ n ∙1ℕ⁺′ ＝ 0′)
+              ∶ 0′ < n ∙1ℕ⁺
+            |> substitute (0′ <_) (⋆ ∶ n ∙1ℕ⁺ ＝ 0′)
               ∶ 0′ < 0′
-  ℚ = [ x ∈ ℝ ∣ Σ k ∈ ℤ′ ∧ Σ n ∈ ℕ⁺′ ∧ x ＝ k ∙1ℤ′ / n ∙1ℕ⁺′ ⟨ helper-rationals-2 n ⟩ ]
+  ℚ = [ x ∈ ℝ ∣ Lift ℓ (Σ k ∈ ℤ ∧ Σ n ∈ ℕ⁺ ∧ x ＝ k ∙1ℤ / n ∙1ℕ⁺ ⟨ helper-rationals-2 n ⟩) ]
   ----------------------------------------------------------------------------
   helper-4-1-1 : 0′ ＝ - 0′
   helper-4-1-1 =
@@ -324,7 +331,7 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
     A : Subset ℝ ℓ
     A = [ x ∈ ℝ ∣ x < 1′ ]
     proposition-4-1-1 : IsTightUpperBound A 1′
-    first proposition-4-1-1 {x} xia lta = antisymmetry (lta ∶ 1′ < x) (xia ∶ x < 1′)
+    first proposition-4-1-1 x xia lta = antisymmetry (lta ∶ 1′ < x) (xia ∶ x < 1′)
     first (second proposition-4-1-1 ε lt) = 1′ - ε / (1′ + 1′) ⟨ helper-rationals-2 (suc one) ⟩
     first (second (second proposition-4-1-1 ε lt)) =
         let nz = helper-rationals-2 (suc one) in
@@ -375,4 +382,86 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
           ∶ 1′ - ε < 1′ - ε / (1′ + 1′) ⟨ nz ⟩
   lemma-4-4 : ∀ x → ℚ ∋ x → ¬ x ∙ x ＝ 1′ + 1′
   lemma-4-4 x ratx ⋆ = {!   !}
-  proposition-4-5 : ¬ (∀ {A x α} → A ⊆ ℚ → A ∋ x → ℚ ∋ α → IsUpperBound A α → Σ β ∈ ℝ ∧ (ℚ ∋ β ∧ IsTightUpperBound A β))
+  helper-4-5-1 : ∀ x → 1′ < x → x < x ∙ x
+  helper-4-5-1 x ⋆ =
+      ⋆
+        ∶ 1′ < x
+      |> ∙order x (transitivity (helper-rationals-1 one) ⋆)
+        ∶ 1′ ∙ x < x ∙ x
+      |> substitute (_< x ∙ x) (∙commutativity _ _ ⟫ ∙neutral x)
+        ∶ x < x ∙ x
+  proposition-4-5 : ¬ (∀ A x α → A ⊆ ℚ → A ∋ x → ℚ ∋ α → IsUpperBound A α → Σ β ∈ ℝ ∧ (ℚ ∋ β ∧ IsTightUpperBound A β))
+  proposition-4-5 completeness =
+        let A = [ x ∈ ℝ ∣ ℚ ∋ x ∧ 0′ < x ∧ x ∙ x < 1′ + 1′ ] in
+        completeness A 1′ (1′ + 1′)
+          (first ∶ ∀ {x} → ℚ ∋ x ∧ 0′ < x ∧ x ∙ x < 1′ + 1′ → ℚ ∋ x)
+          (lift (positive one , one , (
+            let nz = helper-rationals-2 one in
+            conclusion-2-7 nz (∙neutral 1′)
+              ∶ 1′ ＝ 1′ ⁻¹⟨ nz ⟩
+            |> =transitivity ＿ symmetry (∙neutral (1′ ⁻¹⟨ nz ⟩))
+            |> =transitivity ＿ ∙commutativity _ _
+              ∶ 1′ ＝ 1′ / 1′ ⟨ nz ⟩)) ,
+          helper-rationals-1 one ,
+          (helper-rationals-1 one
+            ∶ 0′ < 1′
+           |> +order 1′
+            ∶ 0′ + 1′ < 1′ + 1′
+           |> substitute (_< 1′ + 1′) (+commutativity 0′ 1′ ⟫ +neutral 1′)
+            ∶ 1′ < 1′ + 1′
+           |> substitute (_< 1′ + 1′) (symmetry (∙neutral 1′))
+            ∶ 1′ ∙ 1′ < 1′ + 1′))
+          (lift ((positive (suc one)) , one , (
+            let nz = helper-rationals-2 one in
+            symmetry (∙neutral (1′ + 1′))
+              ∶ 1′ + 1′ ＝ (1′ + 1′) ∙ 1′
+            |> =transitivity ＿ congruence ((1′ + 1′) ∙_) (conclusion-2-7 nz (∙neutral 1′))
+              ∶ 1′ + 1′ ＝ (1′ + 1′) / 1′ ⟨ nz ⟩)))
+          (λ x (ratx , posx , xlts2) xgt2 →
+            helper-rationals-1 one
+              ∶ 0′ < 1′
+            |> +order 1′
+              ∶ 0′ + 1′ < 1′ + 1′
+            |> substitute (_< 1′ + 1′) (+commutativity 0′ 1′ ⟫ +neutral 1′)
+              ∶ 1′ < 1′ + 1′
+            |>  transitivity ＿ xgt2
+              ∶ 1′ < x
+            |> helper-4-5-1 x
+              ∶ x < x ∙ x
+            |> transitivity xgt2
+              ∶ 1′ + 1′ < x ∙ x
+            |> transitivity xlts2
+              ∶ x ∙ x < x ∙ x
+            |> λ lt → antisymmetry lt lt
+              ∶ ⊥)
+          ∶ Σ β ∈ ℝ ∧ (ℚ ∋ β ∧ IsTightUpperBound A β)
+        |> λ (α , ratα , ubα , tightα) →
+        {!   !}
+          ∶ ⊥
+  infixr 6 _^ℕ⁺_
+  _^ℕ⁺_ : ℝ → ℕ⁺ → ℝ
+  x ^ℕ⁺ one = x
+  x ^ℕ⁺ suc n = x ^ℕ⁺ n ∙ x
+  proposition-4-6 : ∀ x n → 0′ < x → ∃! y ∈ ℝ ∧ (0′ < y ∧ x ＝ y ^ℕ⁺ n)
+  proposition-4-6 = {!   !}
+  infix 6 _√ℕ⁺_⟨_⟩
+  _√ℕ⁺_⟨_⟩ : ℕ⁺ → ∀ x → 0′ < x → ℝ
+  helper-4-6-1 : ∀ x n → 0′ < x → 0′ < x ^ℕ⁺ n
+  helper-4-6-1 x one gz = gz ∶ 0′ < x
+  helper-4-6-1 x (suc n) gz =
+    helper-4-6-1 x n gz
+      ∶ 0′ < x ^ℕ⁺ n
+    |> ∙order x gz
+      ∶ 0′ ∙ x < x ^ℕ⁺ suc n
+    |> substitute (_< x ^ℕ⁺ suc n) (∙commutativity 0′ x ⟫ proposition-2-9 x)
+      ∶ 0′ < x ^ℕ⁺ suc n
+  n √ℕ⁺ x ⟨ gz ⟩ =
+      proposition-4-6 x n gz
+      |> λ (y , _) → y
+  proposition-4-7 :
+    ∀ a {m n k l} (gz : 0′ < a)
+      → m ∙1ℕ⁺ / n ∙1ℕ⁺ ⟨ helper-rationals-2 n ⟩
+        ＝ k ∙1ℕ⁺ / l ∙1ℕ⁺ ⟨ helper-rationals-2 l ⟩
+      → n √ℕ⁺ a ^ℕ⁺ m ⟨ helper-4-6-1 a m gz ⟩
+        ＝ k √ℕ⁺ a ^ℕ⁺ l ⟨ helper-4-6-1 a l gz ⟩
+  proposition-4-7 = {!   !}
