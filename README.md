@@ -1,4 +1,4 @@
-# Calculus 1A @ TAU, First Semester of 2025-2026
+# Calculus 1A @ Tel Aviv University, First Semester of 2025-2026
 
 These are the lecture notes for this course, written in the [Typst](https://typst.app/) typesetting language.
 [YOU CAN FIND THE LECTURE NOTES IN PDF FORM HERE](https://github.com/danielFHcode/calculus-1a/releases/latest).

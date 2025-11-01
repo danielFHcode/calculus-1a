@@ -15,8 +15,10 @@ jobs:
         uses: typst-community/setup-typst@v4
       - name: Compile Typst files
         run: |
-          typst compile 2025-10-26.typ --font-path fonts
-          typst compile 2025-10-29-tergul.typ --font-path fonts
+          for source in *.typ
+          do
+            typst watch $source --font-path fonts
+          done
 
       - name: Setup Agda
         uses: wenkokke/setup-agda@v2
