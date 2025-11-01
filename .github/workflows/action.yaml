@@ -17,7 +17,7 @@ jobs:
         run: |
           for source in *.typ
           do
-            typst watch $source --font-path fonts
+            typst compile $source --font-path fonts
           done
 
       - name: Setup Agda
