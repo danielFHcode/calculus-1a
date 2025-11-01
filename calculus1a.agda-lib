@@ -1,1 +1,3 @@
-flags: --rewriting
+flags:
+  --rewriting
+  --allow-unsolved-metas
