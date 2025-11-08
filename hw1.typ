@@ -672,4 +672,263 @@
 = שאלה 3
 
 + יהיו
-  $x, y in RR$
+  $x, y in RR$:
+
+  - אם $0 <= x,y$,
+    אז
+    $abs(abs(x) - abs(y)) = abs(x - y) <= abs(x-y)$.
+  - אם $x,y < 0$,
+    אז
+    $abs(abs(x)-abs(y)) = abs(y-x) = abs(x-y) <= abs(x-y)$.
+  - אם $x < 0$
+    וגם $0 <= y$,
+    אז
+    $abs(abs(x) - abs(y)) = abs(-x-y) = abs(y+x)$.
+    אם
+    $-x <= y$
+    אז
+    $abs(y+x) = y + x <= y - x = abs(y-x)$,
+    אם
+    $y < -x$
+    אז
+    $abs(y+x) = -x - y <= y - x = abs(x-y)$.
+  - אם
+    $0 <= x$
+    וגם
+    $y < 0$,
+    אז לפי המקרה הקודם
+    $abs(abs(x) - abs(y)) = abs(abs(y) - abs(x)) <= abs(y - x) = abs(x - y)$.
+
+  כפי שניתן לראות מתקיים שוויון כאשר
+  $x,y >= 0$.
+
++ יהי
+  $a in RR\\{0}$,
+  נשים לב כי
+  $abs(a + 1/a) = abs(a) + 1/abs(a)$.
+
+  $
+               & abs(a) + 1/abs(a) >= 2 \
+    <==> space & abs(a)^2 + 1 >= 2abs(a) \
+    <==> space & abs(a)^2 - 2abs(a) + 1 >= 0 \
+    <==> space & (abs(a) - 1)^2 >= 0 <-- mtext("נכון כי כל ערך בריבוע גדול/שווה 0") \
+  $
+
+  מתקיים שוויון כאשר:
+
+  $
+               & (abs(a) - 1)^2 = 0 \
+    <==> space & abs(a) - 1 = 0 \
+    <==> space & abs(a) = 1 \
+    <==> space & a = plus.minus 1 \
+  $
+
++ יהיו
+  $0 < x, y in RR$.
+
+  $
+               & sqrt(x) + sqrt(y) <= x/sqrt(y) + y/sqrt(x) \
+    <==> space & x sqrt(y) + y sqrt(x) <= x sqrt(x) + y sqrt(y) \
+    <==> space & x dot (sqrt(y) - sqrt(x)) <= y dot (sqrt(y) - sqrt(x)) \
+    <==> space & sqrt(x) - sqrt(y) = 0 or (x <= y and 0 < sqrt(x) - sqrt(y)) or (y <= x and sqrt(x) - sqrt(y) < 0) \
+    <==> space & sqrt(x) = sqrt(y) or (x <= y and sqrt(y) < sqrt(x)) or (y <= x and sqrt(x) < sqrt(y)) \
+    <==> space & x = y or (x <= y and y < x) or (y <= x and x < y) \
+    <==> space & x = y or y < x or x < y space <-- mtext("נכון") \
+  $
+
+  מתקיים שוויון כאשר:
+
+  $
+               & x dot (sqrt(y) - sqrt(x)) = y dot (sqrt(y) - sqrt(x)) \
+    <==> space & sqrt(y) - sqrt(x) = 0 or x = y \
+    <==> space & sqrt(y) = sqrt(x) or x = y \
+    <==> space & x = y or x = y \
+    <==> space & x = y \
+  $
+
+= שאלה 4
+
++ / בסיס\::
+    $
+      sum_(k=1)^1 k^2 = 1^2 = 1 = (1 dot (1+1) dot (2 dot 2 + 1))/6
+    $
+  / צעד\::
+    $
+           sum_(k=1)^(n+1) k^2
+           =                   & (n+1)^2 + sum_(k=1)^n k^2 \
+      mtext("צעד") --> space = & (n+1)^2 + (n(n+1)(2n+1))/6 \
+                             = & (6(n+1)^2 + n(n+1)(2n+1))/6 \
+                             = & ((n+1)(6n + 6) + (n+1) dot (2n^2 + n))/6 \
+                             = & ((n+1) dot (2n^2 + n + 6n + 6))/6 \
+                             = & ((n+1) dot (2n^2 + 4n + 3n + 6))/6 \
+                             = & ((n+1) dot (2n(n + 2) + 3(n + 2)))/6 \
+                             = & ((n+1)(2n + 3)(n + 2))/6 \
+                             = & ((n+1)(2(n+1) + 1)((n+1) + 1))/6 \
+    $
+
++ / בסיס\::
+    $
+      sum_(k=0)^1 q^k = q^0 + q^1 = 1 + q = ((1-q)(1+q))/(1-q) = (1-q^2)/(1-q)
+    $
+  / צעד\::
+    $
+         sum_(k=0)^(n+1) q^k & = q^(n+1) + sum_(k=0)^n q^k \
+      mtext("צעד") --> space & = q^(n+1) + (1-q^(n+1))/(1-q) \
+                             & = (cancel(q^(n+1)) - q^(n+2) + 1 cancel(- q^(n+1)))/(1-q) \
+                             & = (1 - q^((n+1)+1))/(1-q) \
+    $
+
++ _הערה:_ בסעיף זה אני משתמש בעובדה ש-$ZZ/18ZZ$
+  מקיים את כל אקסיומות השדה חוץ מקיום הופכי ולכן ניתן לעשות אלגברה על משוואות מעל היחס
+  $equiv mod 18$
+  כל עוד לא משתמשים בחילוק.
+
+  נשים לב כי:
+
+  $
+    & 18 | 7^n + 12n + 17 <==> 7^n + 12n + 17 & equiv & 0 & mod 18
+                                                            <==> space & 7^n & equiv & 6n + 1 & mod 18 \
+  $
+  / בסיס\::
+    $
+      7^1 equiv 6 dot 1 + 1 mod 18
+    $
+  / צעד\::
+    $
+                 & 7^(n+1)                          & equiv & 6(n+1) + 1 & mod 18 \
+      <==> space & 7^(n+1)                          & equiv & 6n + 6 + 1 & mod 18 \
+      mtext("צעד") --> space
+      <==> space & 7 dot (6n + 1)                   & equiv & 6n + 7     & mod 18 \
+      <==> space & 42n + 7                          & equiv & 6n + 7     & mod 18 \
+      <==> space & 42n                              & equiv & 6n         & mod 18 \
+      <==> space & 36n                              & equiv & 0          & mod 18 \
+      <==> space & exists k in ZZ ds 36n            &     = & 18k \
+      <==> space & exists k in ZZ ds 2n             &     = & k \
+      <==> space & 2n in ZZ space <-- mtext("נכון") \
+    $
+// / בסיס\::
+//   $
+//     18 |
+//     36 =
+//     7^1 + 12 dot 1 + 17
+//   $
+// / צעד\::
+//   $
+//     7^(n+1) + 12 dot (n+1) + 17
+//     &equiv 7 dot 7^n + 12n + 12 + 17 &mod 18 \
+//     &equiv 7 dot 7^n + 12n + 11 &mod 18 \
+//   $
+
+= שאלה 5
+
+$
+  0 = 0^n = (1 - 1)^n = sum_(k=0)^n binom(n, k) 1^(n-k) (-1)^k = sum_(k=0)^n binom(n, k) dot 1 dot (-1)^k = sum_(k=0)^n binom(n, k) (-1)^k
+$
+
+// אם
+// $n$
+// אי זוגי:
+
+// $
+//   sum_(k=0)^n (-1)^k binom(n,k)
+//   &= sum_(k=0)^((n-1)/2) (-1)^k binom(n,k) + sum_(k=(n+1)/2)^n (-1)^k binom(n,k) \
+//   &= sum_(k=0)^((n-1)/2) (-1)^k binom(n,k) + sum_(k=0)^((n-1)/2) (-1)^(k+(n+1)/2) binom(n,k+(n+1)/2) \
+//   &= sum_(k=0)^((n-1)/2) (-1)^k binom(n,k) + sum_(k=0)^((n-1)/2) (-1)^(k+(n+1)/2) binom(n, (n-1)/2 - k) \
+//   &= sum_(k=0)^((n-1)/2) (-1)^k binom(n,k) + sum_(k=0)^((n-1)/2) (-1)^((n-1)/2-k+(n+1)/2) binom(n, k) \
+//   &= sum_(k=0)^((n-1)/2) (-1)^k binom(n,k) + sum_(k=0)^((n-1)/2) (-1)^(n-k) binom(n, k) \
+//   mtext("זוגי") k --> space
+//   &= sum_(k=0)^((n-1)/2) (-1)^k binom(n,k) + sum_(k=0)^((n-1)/2) (-1)^(k+1) binom(n, k) \
+//   &= cancel(sum_(k=0)^((n-1)/2) (-1)^k binom(n,k)) cancel(- sum_(k=0)^((n-1)/2) (-1)^k binom(n,k)) \
+//   &= 0
+// $
+
+// אם
+// $n$
+// זוגי:
+
+// $
+//   sum_(k=0)^n (-1)^k binom(n,k)
+//   &= sum_(k=0)^(n/2-1) (-1)^k binom(n,k) + sum_(k=n/2)^(n) (-1)^k binom(n,k) \
+//   &= sum_(k=0)^(n/2-1) (-1)^k binom(n,k) + sum_(k=0)^(n/2) (-1)^(k+n/2) binom(n, k+n/2) \
+//   &= sum_(k=0)^(n/2-1) (-1)^k binom(n,k) + sum_(k=0)^(n/2) (-1)^((n/2-k)+n/2) binom(n, (n/2-k)+n/2) \
+//   &= sum_(k=0)^(n/2-1) (-1)^k binom(n,k) + sum_(k=0)^(n/2) (-1)^(n-k) binom(n, n-k) \
+//   &= sum_(k=0)^(n/2-1) (-1)^k binom(n,k) + sum_(k=0)^(n/2) (-1)^(n-k) binom(n, k) \
+//   mtext("זוגי") n --> space
+//   &= sum_(k=0)^(n/2-1) (-1)^k binom(n,k) + sum_(k=0)^(n/2) (-1)^(-k) binom(n, k) \
+//   &= sum_(k=0)^(n/2-1) (-1)^k binom(n,k) + sum_(k=0)^(n/2) (-1)^k binom(n, k) \
+//   &= (-1)^(n/2) binom(n, n/2) + 2sum_(k=0)^(n/2-1) (-1)^k binom(n,k) \
+// $
+
+// / בסיס\::
+//   $
+//     sum_(k=0)^1 (-1)^k binom(n,k)
+//     = binom(1, 0) - binom(1,1)
+//     = 0
+//   $
+// / צעד\::
+//   $
+//     sum_(k=0)^(n+1) (-1)^k binom(n+1,k)
+//     &= (-1)^(n+1) binom(n+1,k) + sum_(k=0)^n (-1)^k binom(n+1,k) \
+//     &= (-1)^(n+1) binom(n+1,k) + sum_(k=0)^n (-1)^k binom(n+1,k) \
+//   $
+
+= שאלה 6
+
+// $
+//   cases(
+//     abs(x - a) < h,
+//     abs(y - b) < h
+//   )
+// $
+
+= שאלה 7
+
++ / בסיס\::
+  $
+    1 + sum_(i=1)^1 x_i = 1 + x_1 <= 1 + x_1 = product_(i=1)^1 1 + x_i
+  $
+  / צעד\::
+  $
+    1 + sum_(i=1)^(n+1) x_i
+    =  & x_(n+1) + 1 + sum_(i=1)^n x_i \
+    mtext("צעד") --> space
+    <= & x_(n+1) + product_(i=1)^n x_i+1 \
+    <= & x_(n+1) (product_(i=1)^n x_i+1) + (product_(i=1)^n x_i+1) \
+     = & (x_(n+1) + 1)(product_(i=1)^n x_i+1) \
+     = & product_(i=1)^(n+1) x_i+1 \
+  $
+
++ / בסיס\::
+    $
+      |x_1| <= |x_1|
+    $
+  / צעד\::
+    $
+         & |x_1 + ... + x_n + x_(n+1)| \
+      mtext("אי שוויון המשולש") --> space
+      <= & |x_1 + ... + x_n| + |x_(n+1)| \
+      mtext("צעד") --> space
+      <= & |x_1| + ... + |x_n| + |x_(n+1)| \
+    $
+
+= שאלה 8
+
+/ בסיס\::
+  $
+    1/(a_1 a_2) = 1/(a_1 a_2)
+  $
+/ צעד\::
+  $
+      & 1/(a_1 a_2) + ... + 1/(a_n a_(n+1)) + 1/(a_(n+1) a_(n+2)) \
+    mtext("צעד") --> space
+    = & n/(a_1 a_(n+1)) + 1/(a_(n+1) a_(n+2)) \
+    = & (n a_(n+2) + a_1)/(a_1 a_(n+1) a_(n+2)) \
+    = & (n(a_0 + (n+2)d) + a_1)/(a_1 a_(n+1) a_(n+2)) \
+    = & (n(a_0 + (n+1)d + d) + a_1)/(a_1 a_(n+1) a_(n+2)) \
+    = & (n(a_(n+1) + d) + a_1)/(a_1 a_(n+1) a_(n+2)) \
+    = & (n a_(n+1) + n d + a_0 + d)/(a_1 a_(n+1) a_(n+2)) \
+    = & (n a_(n+1) + a_0 + (n+1)d)/(a_1 a_(n+1) a_(n+2)) \
+    = & (n a_(n+1) + a_(n+1))/(a_1 a_(n+1) a_(n+2)) \
+    = & ((n+1)cancel(a_(n+1)))/(a_1 cancel(a_(n+1)) a_(n+2)) \
+    = & (n+1)/(a_1 a_(n+2)) \
+  $
