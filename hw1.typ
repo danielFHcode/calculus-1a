@@ -874,12 +874,14 @@ $
 
 = שאלה 6
 
-// $
-//   cases(
-//     abs(x - a) < h,
-//     abs(y - b) < h
-//   )
-// $
+$
+  abs(x y - a b) & = abs(x y - x b + x b - a b) \
+                 & <= abs(x y - x b) + abs(x b - a b) \
+                 & = abs(x) dot underbrace(abs(y - b), < h) + abs(b) dot underbrace(abs(x - a), < h) \
+                 & < abs(x) dot h + abs(b) dot h \
+                 & < abs(x) dot h + abs(b) dot h + h^2 \
+                 & = h dot (abs(x) + abs(b) + h) \
+$
 
 = שאלה 7
 
