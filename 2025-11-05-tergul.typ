@@ -10,7 +10,7 @@
 #maketitle(
   title: "חדו\"א א - תרגול",
   authors: ("דניאל פ.ח.",),
-  date: fmt(datetime.today(), locale: "he"),
+  date: fmt(datetime(day: 5, month: 11, year: 2025), locale: "he"),
 )
 
 = צפיפות הרציונלים

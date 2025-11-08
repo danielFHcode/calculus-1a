@@ -10,7 +10,7 @@
 #maketitle(
   title: "חדו\"א א - תרגול",
   authors: ("דניאל פ.ח.",),
-  date: fmt(datetime.today(), locale: "he"),
+  date: fmt(datetime(day: 29, month: 10, year: 2025), locale: "he"),
 )
 
 = אינדוקציה
