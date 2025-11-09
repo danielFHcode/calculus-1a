@@ -108,6 +108,7 @@ record RealAxioms ℓ : Set (lsuc ℓ) where
   infixl 5 _/_⟨_⟩
   _/_⟨_⟩ : ℝ → ∀ x → ¬ x ＝ 0′ → ℝ
   x / y ⟨ nz ⟩ = x ∙ y ⁻¹⟨ nz ⟩
+  infix 3 _≤_
   _≤_ : ℝ → ℝ → Set ℓ
   x ≤ y = ¬ y < x
   IsUpperBound : Subset ℝ ℓ → ℝ → Set (ℓ ⊔ ℓ)

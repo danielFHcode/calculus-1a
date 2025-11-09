@@ -8,3 +8,6 @@ module _ {ℓ} (real-axioms : RealAxioms ℓ) where
 
   archimedean-naturals : ∀ x y → 0′ < x → Σ n ∈ ℕ⁺ ∧ y < n ∙1ℕ⁺ ∙ x
   archimedean-naturals x y gz = {!   !}
+
+  well-order-of-naturals : ∀ (A : Subset ℕ⁺ ℓ) → Σ n ∈ ℕ⁺ ∧ (A ∋ n ∧ ∀ m → A ∋ m → n ∙1ℕ⁺ ≤ m ∙1ℕ⁺)
+  well-order-of-naturals = {!   !}
