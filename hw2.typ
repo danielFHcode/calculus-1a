@@ -422,20 +422,19 @@
     ולכן סה"כ
     #box(fill: rgb("#ffff00"))[$-1 = inf D$].
 
-+ #set text(fill: red)
-  תהי
-  $n in NN$,
-  אז
++ //#set text(fill: red)
   $sqrt(n) <= ceil(sqrt(n))$
   לכן
-  $0 <= ceil(sqrt(n)) - sqrt(n)$.
+  $0 <= ceil(sqrt(n)) - sqrt(n)$
+  לכל
+  $n in NN$.
   בנוסף עבור
   $0 < epsilon$,
   $1 - sqrt(1) in A$
   וגם
   $1 - sqrt(1) = 0 < 0 + epsilon$.
   סה"כ
-  $inf A = 0$.
+  #box(fill: rgb("#ffff00"))[$inf A = 0$].
 
   תהי
   $n in NN$,
@@ -451,13 +450,63 @@
   $1$
   חסם מלעיל של
   $A$.
-  מאקסיומת השלמות קיים
-  $x = sup A$,
-  נניח בשלילה כי
-  $x < 1$.
-  מהגדרת סופרמום קיימת
+  נניח בשלילה כי קיים
+  $x < 1$
+  חסם מלעיל של
+  $A$,
+  אז מרציפות הממשיים קיים רציונלי בין
+  $x$
+  ו-$1$,
+  כלומר קיימים
+  $k in ZZ, m in NN^+$
+  כך ש-$x < k/m < 1$,
+  ובפרט נשים לב כי
+  $2-sqrt(2) in A$
+  לכן
+  $0 < 2-sqrt(2) <= x$
+  ולכן
+  $0 < k/m < 1$
+  מה שאומר ש-$0 < k < m$
+  לכן
+  $k in NN$
+  ולכן אם נבחר
+  $n = m^2 - k$
+  אז
   $n in NN$
-  כך ש-$x - 1 < ceil(sqrt(n)) - sqrt(n)$,
+  ולכן
+  $ceil(sqrt(n)) - sqrt(n) in A$.
+  בנוסף נבחין כי
+  $k < m < 2m - 1$
+  (שימו לב כי $1 < m$)
+  ולכן
+  $(m-1)^2 = m^2 - 2m + 1 < m^2 - k < m^2$
+  ולכן
+  $ceil(sqrt(n)) = ceil(sqrt(m^2 - k)) = sqrt(m^2) = m$.
+  לבסוף נראה כי:
+
+  $
+    ceil(sqrt(n)) - sqrt(n) & = m - sqrt(m^2 - k) \
+                            & = ((m - sqrt(m^2 - k))(m + sqrt(m^2 - k)))/(m + sqrt(m^2 - k)) \
+                            & = (cancel(m^2) - cancel(m^2) + k)/(m + sqrt(m^2 - k)) \
+                            & >= k/(m + sqrt(m^2)) \
+                            & = k/(2m) \
+                            & > k/m \
+                            & > x \
+  $
+
+  שזו סתירה לכך ש-$x$
+  חסם מלעיל של
+  $A$
+  ולכן
+  $x$
+  לא יכול להתקיים מה שאומר ש-#box(fill: rgb("#ffff00"))[$sup A = 1$].
+// מאקסיומת השלמות קיים
+// $x = sup A$,
+// נניח בשלילה כי
+// $x < 1$.
+// מהגדרת סופרמום קיימת
+// $n in NN$
+// כך ש-$x - 1 < ceil(sqrt(n)) - sqrt(n)$,
 // אז
 // $x < ceil(sqrt(n))$,
 // $n != 0$
