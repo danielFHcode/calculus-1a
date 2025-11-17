@@ -471,3 +471,146 @@
 // לכן
 // $1 <= ceil(sqrt(n))$
 
++ תהי
+  $emptyset != A subset.eq RR$,
+  נניח כי
+  $A$
+  סופית, אז קיים
+  $n in NN^+$
+  כך ש-$abs(A) = n$.
+  נוכיח באינדוקציה על
+  $n$
+  כי קיימים מקסימום ומינימום ל-$A$.
+
+  / בסיס\::
+    עבור
+    $n = 1$,
+    $abs(A) = 1$
+    לכן קיים
+    $x in A$
+    כך ש-$A = {x}$
+    לכן
+    $min A = max A = x$.
+
+  / צעד\::
+    אם
+    $1 < n$,
+    אז
+    $n-1 in NN^+$,
+    נניח כי לכל
+    $emptyset != B subset.eq RR$
+    כך ש-$abs(B) = n-1$,
+    קיימים ל-$B$
+    מינימום ומקסימום, נוכיח כי הם קיימים ל-$A$:
+    $A != emptyset$
+    לכן קיים
+    $x in A$,
+    אז
+    $abs(A\\{x}) = abs(A) - 1 = n - 1$
+    לכן מההנחה קיימים
+    $min(A\\{x}), max(A\\{x})$.
+    נסמן
+    $m = min{x, min(A\\{x})}, n = max{x, max(A\\{x})}$,
+    אז
+    $m <= x, min(A\\{x})$
+    וגם
+    $m in A$
+    לכן
+    $m = min(x union (A\\{x})) = min A$
+    ובצורה דומה
+    $n = max A$.
+
++ #set enum(numbering: hebrew-numbering)
+  #set text(fill: red)
+  + תהי
+    $A subset.eq RR$,
+    נניח כי
+    $0 < d(A) = inf{abs(x - y) | x in A, y in A\\{x}}$.
+    יהי
+    $x in A$,
+// נשים לב כי:
+
+
+// $
+//   &exists 0 < epsilon ds (x-epsilon, x+epsilon) inter A = {x} \
+//   <=> space&exists 0 < epsilon ds {y in A : x - epsilon < y < x + epsilon} = {x} \
+//   <=> space&exists 0 < epsilon ds {y in A : abs(y - x) < epsilon} = {x} \
+//   <=> space&exists 0 < epsilon ds {y in A : abs(y - x) < epsilon} = {y in A : abs(y - x) = 0} \
+//   <=> space&exists 0 < epsilon ds [0, epsilon) inter {abs(y - x) : y in A} = {0} \
+//   0 in {abs(x-x)} --> space
+//   <=> space&exists 0 < epsilon ds (0, epsilon) inter {abs(y - x) : y in A} = emptyset \
+//   <=> space&exists 0 < epsilon ds not exists y in A ds 0 != abs(y-x) < epsilon \
+//   <=> space&exists 0 < epsilon ds not exists y in A\\{x} ds abs(y-x) < epsilon \
+//   <=> space&forall 0 < epsilon ds exists y in A\\{x} ds abs(y-x) < epsilon \
+//   <=> space&forall 0 < epsilon ds exists y in A\\{x} ds abs(x-y) < epsilon \
+// $
+
+
+// תהי
+// $0 < epsilon$,
+// אז מהגדרת אינפימום קיימים
+// $hat(x) in A, y in A\\{hat(x)}$
+// כך ש-
+
+// $
+//   & abs(hat(x) - y) < d(A) - (d(A) + abs(x - y) + epsilon) \
+//   <=> space& abs(x - y) + epsilon < -abs(hat(x) - y) <= -abs(hat(x) - x) - abs(x - y) \
+// $
+
++ / הוכחת עזר\::
+    תהי
+    $a_n$
+    מונוטונית עולה
+    (כלומר לכל
+    $n in NN$,
+    $0 < a_n <= a_(n+1)$),
+    נגדיר
+    $Sigma a_n = sum_(k=0)^n a_k$,
+    נוכיח כי
+    $lim_(n -> infinity) Sigma a_n = infinity$:
+    תהי
+    $epsilon$,
+    אז:
+
+    $
+      epsilon
+      <  & (epsilon/a_0 + 1) dot a_0 \
+      <= & (ceil(epsilon/a_0) + 1) dot a_0 \
+       = & sum_(k=0)^ceil(epsilon/a_0) dot a_0 \
+      mtext("מונוטונית עולה") a_n --> space
+      <= & sum_(k=0)^ceil(epsilon/a_0) dot a_k \
+       = & Sigma a_ceil(epsilon/a_0) \
+    $
+
+  יהיו
+  $x, y in RR$
+  כך ש-$1 < x$,
+  נגדיר
+  $a_n = x^(n+1) - x^n$,
+  אז
+  $Sigma a_n = x^(n+1) + x_0$.
+  לכל
+  $n in NN$,
+  מתקיים:
+
+  $
+              & a_n             & < & a_(n+1) \
+    <=> space & x^(n+1) - x^n   & < & x^(n+2) - x^(n+1) \
+    <=> space & x^n dot (x + 1) & < & x^(n+1) dot (x + 1) \
+    1<x --> 0<2<x+1 --> space
+    <=> space & x^n             & < & x^(n+1) \
+    1<x --> 0<x --> space
+    <=> space & 1               & < & x space <-- mtext("נתון") \
+  $
+
+  אז
+  $a_n$
+  מונוטונית עולה לכן
+  $lim_(n -> infinity) x^(n+1) + x_0 = infinity$
+  מהוכחת העזר, לכן מאריתמטיקת גבולות
+  $lim_(n -> infinity) x^(n+1) = infinity$,
+  לכן
+  #box(fill: rgb("#ffff00"))[$lim_(n -> infinity) x^n = infinity$].
+  בנוסף מהגדרת גבול אינסופי קיים
+  $n in NN$
+  כך ש-#box(fill: rgb("#ffff00"))[$y < x^n$].

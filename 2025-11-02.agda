@@ -11,3 +11,7 @@ module _ {ℓ} (real-axioms : RealAxioms ℓ) where
 
   well-order-of-naturals : ∀ (A : Subset ℕ⁺ ℓ) → Σ n ∈ ℕ⁺ ∧ (A ∋ n ∧ ∀ m → A ∋ m → n ∙1ℕ⁺ ≤ m ∙1ℕ⁺)
   well-order-of-naturals = {!   !}
+
+  proposition-1 : ∀ x → ∃! k ∈ ℤ ∧ (k ∙1ℤ ≤ x ∧ x < k ∙1ℤ + 1′)
+  first (proposition-1 x) = {!   !}
+  second (proposition-1 x) = {!   !}
