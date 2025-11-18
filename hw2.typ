@@ -738,3 +738,64 @@
   בנוסף מהגדרת גבול אינסופי קיים
   $n in NN$
   כך ש-#box(fill: rgb("#ffff00"))[$y < x^n$].
+
++ ראשית נשים לב כי הטענה שקולה להוכחה כי לכל
+  $alpha < beta in [-pi/2, pi/2]$
+  קיים
+  $n in NN$
+  כך ש-$sin alpha < sin n < sin beta$,
+  ממחזוריות
+  $sin$
+  נאכל לכתוב את
+  $sin n$
+  בתור
+  $theta + 2pi dot k$
+  עבור
+  $theta in [-pi/2, 3/2 pi], k in ZZ$
+  כלשהם, ואז הטענה שקולה לכך ש-$(theta <= pi/2 and alpha < theta < beta) or (pi/2 <= theta and alpha < pi - theta < beta)$,
+  וזה סה"כ שקול לכך שלכל
+  $alpha < beta in [-pi/2, pi/2]$
+  קיימים
+  $theta in [-pi/2, pi/2], k in ZZ$
+  כך ש-$theta + 2pi dot k in NN$
+  וגם
+  $alpha < theta < beta$,
+  שזה שקול לכך שלכל
+  $alpha, beta in [0, 2pi]$
+  קיימים
+  $theta in [0, 2pi], k in ZZ$
+  כך ש-$theta - 2pi dot k in NN$
+  וגם
+  $alpha < theta < beta$
+  שזה שקול לזה שקיימת
+  $n in NN$
+  כך ש-$alpha < n mod 2pi < beta$,
+  // כלומר ש-${n - 2pi k : n in NN, k in ZZ, n - 2 pi dot k <= pi/2}$
+  // צפוף ב-$[-pi/2, pi/2]$
+  אז נוכיח זאת: יהיו
+  $alpha < beta in [0, 2pi]$,
+  אז מצפיפות הממשיים קיימים
+  $p, q in QQ$
+  כך ש-$alpha < p < q < beta$,
+  בנוסף קיימים
+  $t, k in ZZ, m in NN^+$
+  כך ש-$p = t/m, q = k/m$,
+  ונשים לב כי
+  $0 <= t < k <= floor(2pi dot m)$.
+  $2pi$
+  אי רציונלי לכן
+  $0/m mod 2pi != 1/m mod 2pi != ... != floor(2pi dot m)/m mod 2pi$
+  (אחרת קיימים $x != y in {0/m mod 2pi, 1/m mod 2pi, ..., floor(2pi dot m)/m mod 2pi}$
+  ו-$k in ZZ$
+  כך ש-$x - y = 2pi dot k$
+  ולכן כיוון ש-$x - y != 0$
+  בהכרח
+  $k != 0$
+  ולכן
+  $2pi = (x - y)/k in QQ$
+  שזו סתירה)
+  ולכן מעקרון שובח היונים קיים
+  $n in {0, ..., floor(2pi dot m)}$
+  כך ש-$t/m < n mod 2pi < k/m$
+  ובפרט
+  $alpha < n mod 2pi < beta$.
