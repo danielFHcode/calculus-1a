@@ -570,13 +570,88 @@
     $n = max A$.
 
 + #set enum(numbering: hebrew-numbering)
-  #set text(fill: red)
-  + תהי
-    $A subset.eq RR$,
-    נניח כי
-    $0 < d(A) = inf{abs(x - y) | x in A, y in A\\{x}}$.
-    יהי
+  תהי
+  $A subset.eq RR$,
+  נגדיר
+  $D_A := {abs(x - y) | x in A, y in A\\{x}}$,
+  אז
+  $d(A) = inf D_A$.
+
+  + נניח כי
+    $0 < d(A)$,
+    נוכיח כי
+    $A$
+    דיסקרטית: יהי
     $x in A$,
+    נבחר
+    $epsilon = d(A) > 0$,
+    אז:
+
+    $
+      (x - d(A), x + d(A)) inter A
+      &= {y in A | x - d(A) < y < x + d(A)} \
+      &= {y in A | abs(y - x) < d(A) } \
+      abs(x - x) = 0 < d(A) --> space
+      &= {x} union \{y in A\\{x} | underbrace(overbrace(abs(y - x), in D_A) < overbrace(d(A), = inf D_A), mtext("אף פעם לא נכון")) } \
+      &= {x} union emptyset \
+      &= {x} \
+    $
+
+  + #set enum(numbering: "i.")
+    3. נניח כי
+      $A$
+      דיסקרטית, תהי
+      $B subset.eq A$,
+      יהי
+      $x in B$,
+      אז
+      $x in A$
+      לכן מכך ש-$A$
+      דיסקרטית קיים
+      $0 < epsilon$
+      כך ש-$(x - epsilon, x + epsilon) inter A = {x}$.
+      נראה כי
+      $(x - epsilon, x + epsilon) inter B subset.eq (x - epsilon, x + epsilon) inter A = {x}$
+      כיוון ש-$B subset.eq A$,
+      וגם
+      $x in B$
+      לכן
+      $x in (x - epsilon, x + epsilon) inter B$
+      כלומר
+      ${x} subset.eq (x - epsilon, x + epsilon) inter B$,
+      סה"כ מהכלה דו כיוונית
+      $(x - epsilon, x + epsilon) inter B = {x}$.
+
+  + יהי
+    $k in ZZ$,
+    אז נבחר
+    $epsilon = frac(1, 2, style: "skewed")$,
+    ומתקיים
+    $(k-frac(1, 2, style: "skewed"), k+frac(1, 2, style: "skewed")) inter ZZ = {k}$,
+    סה"כ
+    #box(fill: rgb("#ffff00"))[$ZZ$
+      דיסקרטית].
+    כעט, לכל
+    $t != k in ZZ$
+    מתקיים כי
+    $ZZ\\{0} in.rev t - k != 0$
+    ולכן
+    $ZZ^+ in.rev abs(t - k) != 0$
+    כלומר
+    $0 < abs(t - k)$.
+    בנוסף לכל
+    $0 < epsilon$
+    מתקיים
+    $floor(epsilon) + 1 != 1$
+    לכן
+    $abs(floor(epsilon) + 1 - 1) in D_ZZ$
+    ובנוסף
+    $abs(ceil(epsilon) + 1 - 1) = ceil(epsilon) < 1 + epsilon$
+    לכן סה"כ
+    #box(fill: rgb("#ffff00"))[$d(ZZ) = inf D_ZZ = 1$].
+
+// יהי
+// $x in A$,
 // נשים לב כי:
 
 
