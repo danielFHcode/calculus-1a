@@ -110,10 +110,10 @@ $
 
 $
   (sum_(k=1)^(n+1) 1/sqrt(k) - sum_(k=1)^n 1/sqrt(k))/(sqrt(n+1) - sqrt(n))
-  =                                       & 1/sqrt(n+1)/(1/(sqrt(n+1) + sqrt(n))) \
-                                        = & (sqrt(n+1) + sqrt(n))/sqrt(n+1) \
-                                        = & 1 + sqrt(n/(n+1)) \
-  xarrow(n --> infinity, sym: #math.alef) & 1 + sqrt(n/(n+1)) \
+  =                                        & 1/sqrt(n+1)/(1/(sqrt(n+1) + sqrt(n))) \
+                                         = & (sqrt(n+1) + sqrt(n))/sqrt(n+1) \
+                                         = & 1 + sqrt(n/(n+1)) \
+  xarrow(n --> infinity, sym: #math.aleph) & 1 + sqrt(n/(n+1)) \
 $
 
 = סדרות מונוטוניות
