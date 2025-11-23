@@ -457,6 +457,18 @@
       root(n, a^n - b^n) xarrow(n --> infinity) a
     $
 
+  + $
+      0 <=
+      sum_(k=1)^n 1/(n^2 + k)
+      <= sum_(k=1)^n 1/(n^2 + 1)
+      = n/(n^2 + 1)
+      <= n/(n^2)
+      = 1/n
+      xarrow(n --> infinity) 0 \
+      arrow.b.double mtext("סנדוויץ") \
+      sum_(k=1)^n 1/(n^2 + k) xarrow(n --> infinity) 0
+    $
+
 + יהיו סדרות
   $a_n, b_n in ZZ$,
   תהי
