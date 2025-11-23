@@ -16,7 +16,7 @@
 #maketitle(
   title: "חדו\"א א - תרגול",
   authors: ("דניאל פ.ח.",),
-  date: fmt(datetime(day: 9, month: 11, year: 2025), locale: "he"),
+  date: fmt(datetime(day: 12, month: 11, year: 2025), locale: "he"),
 )
 
 = הגדרת הגבול
