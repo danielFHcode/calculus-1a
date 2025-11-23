@@ -507,16 +507,52 @@
   $q$
   אירציונלי.
 
-+ $
-    1/(1-s) <--
++ תהי
+  $n in NN$,
+  אז:
+
+  $
     sum_(k=0)^(n-1) s^k =
     sum_(k=1)^n s^(n-k) <=
     sum_(k=1)^n (n/k)^beta s^(n-k)
   $
 
-  לכן
-  $1/(1-s) <= lim_(n -> infinity) sum_(k=1)^n (n/k)^beta s^(n-k)$.
+  בנוסף נבחר
+  $1 < alpha$
+  כלשהו, אז נבחין כי לכל
+  $k in NN$:
 
+  $
+    k <= (root(beta, alpha) - 1)/root(beta, alpha) dot n
+    => & k root(beta, alpha) <= (root(beta, alpha) - 1) dot n \
+    => & k root(beta, alpha) <= n root(beta, alpha) - n \
+    => & n <= (n-k) root(beta, alpha) \
+    => & n/(n-k) <= root(beta, alpha) \
+    => & (n/(n-k))^beta <= alpha \
+  $
+
+  נסמן
+  $m = floor((root(beta, alpha) - 1)/root(beta, alpha) dot n)$,
+  אז מתקיים:
+
+  $
+    sum_(k=1)^n (n/k)^beta s^(n-k)
+    =  & sum_(k=0)^(n-1) (n/(n-k))^beta s^k \
+     = & sum_(k=0)^m (n/(n-k))^beta s^k + sum_(k=m+1)^(n-1) (n/(n-k))^beta s^k \
+    <= & sum_(k=0)^m alpha s^k + sum_(k=m+1)^(n-1) n^beta s^k \
+     = & alpha dot (s^(m+1)-1)/(s-1) + n^beta dot ((s^n - 1)/(s-1) - (s^(m+1)-1)/(s-1)) \
+     = & alpha dot (s^(m+1)-1)/(s-1) + n^beta dot (s^n - s^(m+1))/(s-1) \
+     = & alpha dot (s^(m+1)-1)/(s-1) + n^beta dot s^(m+1) dot (s^(n-m-1) - 1)/(s-1) \
+     = & alpha dot (s^(m+1)-1)/(s-1) + n^beta dot s^(m+1) dot (s^(1-1) - 1)/(s-1) \
+     = & alpha dot (s^(m+1)-1)/(s-1) + n^beta dot s^(m+1) dot (cancel(1) - cancel(1))/(s-1) \
+     = & alpha dot (s^(m+1)-1)/(s-1) \
+  $
+
+  $sum_(k=0)^(n-1) s^k, alpha dot (s^(m+1)-1)/(s-1) xarrow(n --> infinity \ alpha --> 0) 1/(1-s)$
+  לכן מסנדוייץ
+  $sum_(k=1)^n (n/k)^epsilon s^(n-k) xarrow(n --> infinity) 1/(1-s)$.
+  #h(1fr)
+  $qed$
 
 + יהיו
   $x_n, lambda_n$
