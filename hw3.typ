@@ -56,7 +56,7 @@
   // spacing: 0em,
   // inset: (y: 2em),
 )
-#set page(margin: (x: 1em), height: auto, fill: black); #set enum(indent: 0em); #set text(size: 1.4em, fill: white);
+// #set page(margin: (x: 1em), height: auto, fill: black); #set enum(indent: 0em); #set text(size: 1.4em, fill: white);
 // #show link: set text(fill: blue)
 
 #maketitle(
