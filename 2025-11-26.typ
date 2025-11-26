@@ -12,6 +12,12 @@
 #show math.equation: set block(breakable: true)
 // #show math.equation.where(block: true): set block(spacing: auto)
 
+#show: it => if sys.inputs.at("x-preview", default: none) != none {
+  set page(fill: black)
+  set text(fill: white)
+  it
+} else { it }
+
 
 #let ds = $. space$
 #let mtext = text.with(font: "David CLM")
