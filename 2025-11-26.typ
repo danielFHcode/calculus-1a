@@ -8,13 +8,13 @@
   // par-first-line-indent: 0em,
 )
 #set text(lang: "he", font: "David CLM")
-#set list(marker: (math.triangle.l, math.square))
+#set list(marker: "-")
 #show math.equation: set block(breakable: true)
 // #show math.equation.where(block: true): set block(spacing: auto)
 
-#show: it => if sys.inputs.at("x-preview", default: none) != none {
-  set page(fill: black)
-  set text(fill: white)
+#show: it => if sys.inputs.at("x-preview", default: none) != none or sys.inputs.at("env", default: none) == "dev" {
+  set page(fill: black, height: auto)
+  set text(fill: white, size: 1.4em)
   it
 } else { it }
 
@@ -264,3 +264,126 @@ $
   + אותו רעיון
   + אותו רעיון
 
+= תרגיל
+
+נגדיר
+$u_n := sup{a_k | n <= k}$
+ונגדיר
+$ell_n := inf{a_k | n <= k}$,
+הוכיחו:
+
+$
+  u_n --> limsup a_n \
+  ell_n --> liminf a_n
+$
+
+= סדרות קושי
+
+סדרה
+$a_n$
+תקרא קושי אם לכל
+$0 < epsilon$
+יש
+$N in NN$
+כך ,שלכל
+$N <= n,m$,
+$abs(a_n - a_n) < epsilon$.
+באופן שקול לכל
+$0 < epsilon$
+יש
+$N in NN$
+כך שלכל
+$N <= n$
+ו-$k in NN$,
+$abs(a_(n+k) - a_n) < epsilon$.
+
+== משפט
+
+סדרה
+$a_n$
+מתכנסת אם"ם קושי.
+
+== תרגיל
+
+הראו ש-$a_n = 1 + 1/4 + 2^2/4^2 + ... + n^2/4^n$
+מתכנסת.
+
+/ פתרון\::
+  יהי
+  $0 < epsilon$,
+  אז לכל
+  $2 <= n$
+  ו-$k$
+  טבעי מתקיים:
+
+  $
+    abs(a_(n+k) - a_n)
+    =  & sum_(j=n+1)^(n+k) j^2/4^j \
+    <= & sum_(j=n+1)^(n+k) 2^j/4^j \
+     = & sum_(j=n+1)^(n+k) 2^(-j) \
+    <= & sum_(j=n+1)^(n+k) 1/j^2 \
+     < & sum_(j=n+1)^(n+k) 1/j(j-1) \
+     = & sum_(j=n+1)^(n+k) (1/(j-1) - 1/j) \
+     = & 1/n - 1/(n+k) \
+     < & 1/n \
+  $
+
+= טורים
+
+- תהי
+  $a_n$
+  סדרה, נגדיר את הטור המתאים:
+  $sum_(k=1)^n a_k$.
+- נאמר שטור מתכנס אם הסכומים החלקיים שלו מתכנסים:
+  $sum_(k=1)^n a_k xarrow(n --> infinity) a$.
+- קריטריון רושי לטורים: הטור
+  $sum a_n$
+  מתכנס אםם לכל
+  $0 < epsilon$
+  ישנו
+  $N in NN$
+  כך שלכל
+  $N <= n$
+  מתקיים:
+  $abs(sum_(m=n+1)^(n+k) a_m) < epsilon$.
+
+== תרגיל
+
+הראו שהטור
+$sum 1/(n(n+1))$
+מתכנס ומצאו את גבולו.
+
+/ פתרון\::
+  $
+        1/n - 1/(n+2) & = 2/(n(n+2)) \
+    => sum 1/(n(n+2)) & = 1/2 sum (1/n - 1/(n+2)) \
+                      & = 1/2 sum_(m=1)^(n+1) (1/m - 1/(m+1)) \
+                      & = 1/2 sum_(m=1)^(n+1) 1/m - 1/2 sum_(m=1)^(n+1) 1/(m+1) \
+                      & = 1/2 (1 + 1/2 - 1/(n+2) - 1/(n+3)) --> 3/4
+  $
+
+== תרגיל אחרון
+
+תהי
+$a_n$
+מונוטונית יורדת כך ש-$sum a_n$
+מתכנס. הראו כי
+$n a_n --> 0$.
+
+/ פתרון\::
+  נסיק מיידית
+  $0 <= a_n$.
+  יהי
+  $0 < epsilon$,
+  קיים
+  $n in NN$
+  כך שלכל
+  $N <= n$:
+
+  $
+    (n+1) a_(2n) < abs(a_n + a_(n+1) + ... + a_(2n)) = abs(sum_(m=n)^(2n) a_m) < epsilon/2
+    => forall N <= n ds 2n a_(2n) < epsilon
+  $
+
+  באופן דומה עבור
+  $k = n+1$.
