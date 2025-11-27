@@ -13,8 +13,8 @@
 // #show math.equation.where(block: true): set block(spacing: auto)
 
 #show: it => if sys.inputs.at("x-preview", default: none) != none or sys.inputs.at("env", default: none) == "dev" {
-  set page(fill: black, height: auto)
-  set text(fill: white, size: 1.4em)
+  set page(height: auto)
+  set text(size: 1.4em)
   it
 } else { it }
 
