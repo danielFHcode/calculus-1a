@@ -29,7 +29,7 @@
 )
 #show math.equation: set text(lang: "en")
 #show: it => if sys.inputs.at("x-preview", default: none) != none or sys.inputs.at("env", default: none) == "dev" {
-  set page(height: auto, numbering: none)
+  set page(height: auto, numbering: none, margin: (bottom: 50cm))
   set text(size: 1.4em)
   ////
   set text(fill: white)
@@ -192,15 +192,26 @@
   //                 & = (a_n^2 - C)/a_n \
   // $
 
-  לכל
+  נשים לב כי לכל
   $n in NN$
   מתקיים:
 
   $
       (a_n + b_n)/2 & <= sqrt(a_n b_n) \
-    (a_n + b_n)^2/4 & <= a_n b_n \
-      (a_n + b_n)/2 & <= (2 a_n b_n)/(a_n + b_n) \
-                a_n & <= b_n \
+  $
+
+  תהי
+  $0 < epsilon$,
+  נסתכל על
+  $N = ? in NN$,
+  תהי
+  $N < n in NN$,
+  אז:
+
+  $
+    abs((a_n + b_n)/2 - sqrt(a_n b_n)) <& epsilon \
+    (a_n + b_n)/2 - sqrt(a_n b_n) <& epsilon \
+    (a_n + b_n)/2 - sqrt(a_n b_n) <& epsilon \
   $
 
 
