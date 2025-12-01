@@ -29,7 +29,14 @@
 )
 #show math.equation: set text(lang: "en")
 #show: it => if sys.inputs.at("x-preview", default: none) != none or sys.inputs.at("env", default: none) == "dev" {
-  set page(height: auto, numbering: none, margin: (bottom: 50cm))
+  set page(numbering: none, height: auto)
+  // show enum.item: it => enum.item(
+  //   context {
+  //     // set heading(offset: heading.offset + 1)
+  //     // place(hide(heading(numbering: (..nums) => [תרגיל #numbering("1.א.i", ..nums)])[]))
+  //     it.body
+  //   },
+  // )
   set text(size: 1.4em)
   ////
   set text(fill: white)
@@ -197,22 +204,80 @@
   מתקיים:
 
   $
-      (a_n + b_n)/2 & <= sqrt(a_n b_n) \
+    mgrid(
+      row-gutter: #1em,
+      column-gutter: #0.2em,
+      align: #(right, right, left),
+      , (a_n + b_n)/2, <= sqrt(a_n b_n);
+      => space, (a_n + b_n)/2 dot (a_n + b_n)/2, <= a_n b_n;
+      => space, (a_n + b_n)/2, <= (2a_n b_n)/(a_n + b_n);
+      => space, a_n, <= b_n;
+    )
   $
 
-  תהי
-  $0 < epsilon$,
-  נסתכל על
-  $N = ? in NN$,
-  תהי
-  $N < n in NN$,
-  אז:
+  מכאן נובע כי לכל
+  $n in NN$:
+
+  #grid(
+    columns: (1fr, 1fr),
+    $
+      a_(n+1) - a_n & = (a_n + b_n)/2 - a_n \
+                    & = (a_n + b_n - 2a_n)/2 \
+                    & = overbrace(b_n - a_n, 0 <=)/2
+                      #h(1.9em) >= 0 \
+    $,
+    $
+      b_(n+1) - b_n & = (2a_n b_n)/(a_n + b_n) - b_n \
+                    & = (2a_n b_n - b_n a_n - b_n^2)/(a_n + b_n) \
+                    & = underbrace(b_n, 0<) dot overbrace(a_n - b_n, 0>=)/underbrace(a_n + b_n, 0<)
+                      #h(1.9em) <= 0 \
+    $,
+  )
+
+  לכן
+  $b_n$
+  מונוטונית יורדת חלש ו-$a_n$
+  מונוטונית עולה חלש, מכאן נובע גם ש-$b_1$
+  חוסמת את
+  $a_n$
+  מלעיל ו-$a_1$
+  חוסמת את
+  $b_n$
+  מלמטה ולכן מווירשטראס קיימים גבולות
+  ל-$a_n$
+  ו-$b_n$,
+  אז מאריתמטיקה:
 
   $
-    abs((a_n + b_n)/2 - sqrt(a_n b_n)) <& epsilon \
-    (a_n + b_n)/2 - sqrt(a_n b_n) <& epsilon \
-    (a_n + b_n)/2 - sqrt(a_n b_n) <& epsilon \
+    lim_(n -> infinity) a_n = lim_(n -> infinity) a_(n+1) = lim_(n -> infinity) (a_n+b_n)/2 = (lim_(n -> infinity) a_n + lim_(n -> infinity) b_n)/2 \
+    arrow.b.double \
+    ell := lim_(n -> infinity) a_n = lim_(n -> infinity) b_n \
   $
+
+  נבחין כי לכל
+  $n in NN^+$
+  מתקיים
+  $b_(n+1) = (a_n b_n)/(a_(n+1))$
+  ולכן
+  $a_(n+1) b_(n+1) = a_n b_n$.
+  נסמן
+  $C := a_1 b_1$,
+  אז מההבחנה נובע כי
+  $a_n b_n = C$
+  לכל
+  $n in NN^+$,
+  ומכך נובע כי
+  $b_n = C/a_n$
+  לכל
+  $n in NN^+$.
+// אם קיים גבול משותף
+// $a_n, b_n xarrow(n --> infinity) ell$,
+// אז מאריתמטיקה
+// $ell = C/ell$
+// לכן
+// $ell^2 = C$
+// ולכן
+// $ell = sqrt(C)$,
 
 
 // $
@@ -242,43 +307,260 @@
 // $
 
 + #set enum(numbering: "(א)")
-  + נפריח באמצעות דוגמא נגדית: נבחר
+  +
+     // תהי
+    // ${a_n}_(n=0)^infinity$,
+    // ויהי
+    // $ell in RR$
+    // כך ש-$sum_(k=1)^n a_k/n xarrow(n --> infinity) ell$,
+    // אם קיים גבול לסדרה
+    // $a_n$
+    // אז משטולץ נקבל ישירות
+    // $a_n xarrow(n --> infinity) ell$,
+
+    נפריח באמצעות דוגמא נגדית: נבחר
     $a_n = (-1)^n/n$,
     אז:
+
     $
-      (sum_(k=1)^n a_n)/n
-      = & (sum_(k=1)^n (-1)^n)/n
-          <= & (sum_(k=1)^n 1)/n
-               = & (sum_(k=1)^n 1)/n
+      0 xarrow(sym: <--, infinity <-- n) -1/n <= overbrace(sum_(k=1)^n (-1)^n, in {0,-1,1})/n <= 1/n xarrow(n -> infinity) 0
     $
 
-+
+    אבל הגבול של
+    $a_n$
+    לא מוגדר.
 
-+ נניח בשלילה כי קיים
-  $ell in RR$
+  // #grid(
+  //   columns: (auto,)*4,
+  //   $$, grid.cell(colspan: 2, $sum_(k=1)^n (-1)^n <=$), $s$
+  // )
+
+  + נפריח באמצעות דוגמא נגדית: ניקח
+    $x_n = sum_(k=1)^n (-1)^n, y_n = n$,
+    אז
+    $y_n$
+    מונוטונית עולה ושואפת לאינסוף.
+    כפי שהוכחנו בסעיף הקודם
+    $0 xarrow(infinity <-- n, sym: <--) x_n/y_n$,
+    אבל הגבול של
+    $(x_(n+1)-x_n)/(y_(n+1)-y_n) = (-1)^n/1$
+    לא מוגדר.
+
++ בתרגול ראינו כי לכל סדרת שלמים
+  $m_k$
+  השואפת לאינסוף מתקיים
+  $(1+1/m_k)^(m_k) xarrow(k --> infinity) e$,
+  אז נגדיר
+  $overline(m)_k := ceil(1/a_k), underline(m)_k := floor(1/a_k)$
   לכל
-  $0 < epsilon$
-  קיים
-  $N in NN$
-  כך שלכל
-  $N < n in NN$
+  $k in NN$,
+  כיוון ש-$a_n --> 0$
   מתקיים
-  $abs(sin n - ell) < epsilon$.
-  נבחר
-  $epsilon = 1/2$,
-  אז קיים
-  $N in NN$
-  כך שלכל
-  $N < n in NN$
-  מתקיים
-  $abs(sin n) < 1/2$,
-  אז הפונקציה
-  $sin(n - N)$
-  תחומה ב-$[]$
+  $1/a_n --> plus.minus infinity$
+  ולכן גם
+  $overline(m)_k, underline(m)_k --> plus.minus infinity$.
+  במקרה בו הם שואפים ל-$+infinity$
+  ניתן להסיק ישר ש-$(11+/overline(m)_k)^overline(m)_k, (1+1/underline(m)_k)^underline(m)_k xarrow(k --> infinity) e$
+  ולכן מסנדוויץ מתקיים
+  $(1+a_n)^(1/a_n) xarrow(n --> infinity) e$.
+  במקרה השני מתקיים בצורה דומה ש-$1/(1-a_n)^(1/a_n), (1+a_n^2)^(1/a_n^2) xarrow(n --> infinity) e$,
+  ובצורה דומה נבחין כי
+  כעט נבחין כי:
+
+  $
+                      0 <= & (1+a_n)^(1/a_n) - 1/(1-a_n)^(1/a_n) \
+                         = & ((1-a_n^2)^(1/a_n) - 1)/(1-a_n)^(1/a_n) \
+                         = & (((1-a_n^2)^(1/a_n^2))^(a_n) - 1)/(1-a_n)^(1/a_n) \
+                        <= & (((1+a_n^2)^(1/a_n^2))^(a_n) - 1)/(1-a_n)^(1/a_n) \
+    xarrow(n --> infinity) & e dot (e^0 - 1) = 0
+  $
+
+  ולכן מסנדוויץ
+  $(1+a_n)^(1/a_n) - 1/(1-a_n)^(1/a_n) --> 0$,
+  ולפי אריתמטיקה זה אומר ש-$(1+a_n)^(1/a_n) --> e$.
+
++ ראשית נבחין כי הסדרה
+  $(sin n)_(n=1)^infinity$
+  תחומה במקטע
+  $[-1,1]$
+  ולכן אם קיים לה גבול אז הוא בהכרח סופי. בנוסף נבחין כי לכל
+  $n in NN^+$,
+  $sin n != 0$
+  כי אז זה אומר ש-$n$
+  הוא כפולה של
+  $2pi$
+  מה שאומר שהוא לא מספר שלם שזו סתירה.
+  אם
+  $sin n$
+  חיובי אז
+  $sin(n + pi)$
+  שלילי ולכן לפחות אחד מבין
+  $sin(n+2), sin(n+3)$
+  שלילי כיוון ש-$sin(n+pi)$
+  הוא ביניהם, בצורה דומה אם
+  $sin n$
+  שלילי אז לפחות אחד מבין
+  $sin(n+1), sin(n+2)$
+  חיובי. סה"כ נקבל שלכל
+  $n in NN^+$,
+  קיימים
+  $n < m,k in NN^+$
+  כך ש-$sin m$
+  חיובי ו-$sin k$
+  שלילי, כלומר שיש אינסוף איברים שליליים וחיוביים של
+  $sin n$.
+
+  / הוכחת עזר\::
+    תהי
+    $(a_n)_(n=1)^infinity$,
+    נניח כי ל-$a_n$
+    יש אינסוף איברים שליליים, אז נוכיח כי הגבול שלה לא חיובי: נניח בשלילה כי קיים גבול
+    $0 < ell$
+    ל-$(a_n)_(n=1)^infinity$,
+    אז קיים
+    $N in NN$
+    כך שלכל
+    $N < n$
+    מתקיים
+    $abs(a_n - ell) < ell$,
+    כיוון של-$(a_n)_(n=1)^infinity$
+    יש אינסוף איברים שליליים קיימת
+    $N < n$
+    כך ש-$a_n < 0$,
+    אז מתקיים:
+
+    $
+      mgrid(
+        align: #(right, center),
+        column-gutter: #0.2em,
+        row-gutter: #1em,
+        , abs(a_n - ell) < ell;
+        =>, -ell < a_n - ell < ell;
+        =>, 0 < a_n < 2ell;
+        =>, mtext("סתירה כיוון ש-"#($a_n < 0$));
+      )
+    $
+
+    לכן ל-$(a_n)_(n=1)^infinity$
+    אין גבול שלילי.
+
+  לפי הוכחת העזר ל-$(sin n)^infinity_(n=1)$
+  אין גבול שלילי ובנוסף ל-$(-sin n)^infinity_(n=1)$
+  אין גבול שלילי ולכן ל-$(sin n)^infinity_(n=1)$
+  אין גבול חיובי, מה שאומר שאם קיים לסדרה גבול אז הוא בהכרח
+  $0$.
+  נאכל לחזור על אותו התהליך בכדי להוכיח שאם קיים ל-$(cos n)^infinity_(n=1)$
+  גבול אז הוא בהכרח
+  $0$.
+
+  נניח בשלילה כי
+  $sin n xarrow(n --> infinity) 0$,
+  אז
+  $cos n = sqrt(1 - sin^2 n) xarrow(n --> infinity) 1 != 0$
+  שזו סתירה, ולכן ל-$(sin n)_(n=1)^infinity$
+  לא קיים גבול.
+// נניח בשלילה כי קיים
+// $ell in RR$
+// לכל
+// $0 < epsilon$
+// קיים
+// $N in NN$
+// כך שלכל
+// $N < n in NN$
+// מתקיים
+// $abs(sin n - ell) < epsilon$.
+// נבחר
+// $epsilon = 1/2$,
+// אז קיים
+// $N in NN$
+// כך שלכל
+// $N < n in NN$
+// מתקיים
+// $abs(sin n) < 1/2$,
+// אז הפונקציה
+// $sin(n - N)$
+// תחומה ב-$[]$
 
 6. תהי
   ${a_n}_(n in NN)$
-  כך ש-$a_(n+1) - a_n xarrow(n --> infinity) 0$
+  כך ש-$a_(n+1) - a_n xarrow(n --> infinity) 0$:
+
+  / מוכל\::
+    תהי
+    $ell in P(a_n)_(n=1)^infinity$,
+    אז מהגדרת אינפימום וסופרמום מתקיים:
+
+    $
+      liminf_(n -> infinity) a_n = inf P(a_n)_(n=1)^infinity <= ell <= sup P(a_n)_(n=1)^infinity = limsup_(n -> infinity) a_n
+    $
+
+    לכן
+    $ell in [liminf_(n --> infinity) a_n, limsup_(n --> infinity) a_n]$.
+
+  / מכיל\::
+    יהי
+    $ell in [liminf_(n --> infinity) a_n, limsup_(n --> infinity) a_n]$,
+    נוכיח כי
+    $ell$
+    גבול חלקי של
+    $(a_n)_(n=1)^infinity$:
+    // אם
+    // $(a_n)_(n=1)^infinity$
+    // אז לפי טענה מהתרגול
+    // $liminf_(n -> infinity) a_n = limsup_(n -> infinity) = lim_(n -> infinity) a_n$
+    // ולכן בהכרח
+    // $ell = lim_(n -> infinity) a_n in P(a_n)_(n=1)^infinity$.
+    אם
+    $ell = {liminf_(n -> infinity) a_n, limsup_(n -> infinity) a_n}$
+    אז נאכל להסיק ישירות ש-$ell$
+    גבול חלקי. אחרת,
+    $liminf_(n -> infinity) a_n < ell < limsup_(n -> infinity) a_n$,
+    לכן מצפיפות הממשיים קיים
+    $m in NN^+$
+    כך ש-$liminf_(n -> infinity) a_n < ell - 1/m, ell + 1/m < liminf_(n -> infinity)$,
+    מכך ש-$liminf_(n -> infinity) a_n$
+    הוא בעצמו גבול חלקי קיימת תת סדרה
+    $(a_n_k)_(k=1)^infinity$
+    של
+    $(a_n)_(n=1)^infinity$
+    כך ש-$a_n_k xarrow(k --> infinity) liminf_(n -> infinity) a_n$,
+    ולכן קיימת
+    $N$
+    כך שלכל
+    $N < k$
+    מתקיים
+    $abs(a_n_k - liminf_(n --> infinity) a_n) < L - 1/m - liminf_(n --> infinity) a_n$,
+    נגדיר
+    $N_1 = n_(N+1)$,
+    אז
+    $a_N_1 < L - 1/m$,
+    בצורה דומה נאכל למצוא
+    $N_2$
+    כך ש-$L + 1/m < a_N_2$.
+
+    לא הצלחתי להמשיך מכאן.
+
+//     תהי
+//     $0 < epsilon$,
+//     אז קיים
+//     $N_0 in NN$
+//     כך שלכל
+//     $N_0 < n$
+//     מתקיים
+//     $abs(a_(n+1) - a_n) < epsilon$.
+//     יהי
+//     $N in NN$,
+//     נסתכל על
+//     $n = max{N, N_0}+1$,
+//     אז
+//     $N < n$
+//     ובנוסף:
+
+//     $
+//       abs(a_n - ell)
+//       <= abs(a_n - a_(n+1)) + abs(a_(n+1) - ell)
+//     $
+
 
 8. #set enum(numbering: "(א)")
   + נפריח באמצעות דוגמא נגדית: נבחר
@@ -299,7 +581,7 @@
     $(a_(n+1))/a_n = n/(n+1) = 1 - 1/n --> 1$
     אבל
     $a_n --> 0$.
-  +
+// +
 
 10.
   / הוכחת עזר\::
@@ -418,8 +700,8 @@
 11.
   #set enum(numbering: num => (
     [(א) $arrow.l.double$ (ב)],
-    [(ב) $arrow.l.double$ (ג)],
     [(ג) $arrow.l.double$ (א)],
+    [(ב) $arrow.l.double$ (ג)],
   ).at(num - 1))
   + נניח את אקסיומת השלמות, יהיו
     $(a_n), (b_n)$
@@ -486,26 +768,28 @@
       ולכן סה"כ
       $ell in inter_(n in NN) [a_n, b_n]$.
 
-  + נניח את עקרון הרווחים המקוננים, תהי סדרה
-    $(a_n)$
-    כך שלכל
-    $0 < epsilon$
-    קיימת
-    $N in NN$
-    כך שלכל
-    $N < n,m$
-    מתקיים
-    $abs(a_n - a_m) < epsilon$,
-    אז נגדיר:
-
-    $
-      f : RR^+ -> NN \
-      f(epsilon) = min{N in NN | forall N < n, m in NN ds abs(a_n - a_m) < epsilon}
-    $
-
-    כעט נגדיר את סדרת המקטעים
-
   + הטענה אינה נכונה.
+
+  + אני לא יודע אם הטענה נכונה או לא אבל שמעתי אנשים מטילים ספק על כך שזה המקרה, וכיוון שכבר נמצאו בעיות אחרות בשאלה הזו  בחרתי שלא לנסות לפתור אותה למקרה שהטענה לא נכונה ולא תהיה לעבודתי מוצא.
+// נניח את עקרון הרווחים המקוננים, תהי סדרה
+// $(a_n)$
+// כך שלכל
+// $0 < epsilon$
+// קיימת
+// $N in NN$
+// כך שלכל
+// $N < n,m$
+// מתקיים
+// $abs(a_n - a_m) < epsilon$,
+// אז נגדיר:
+
+// $
+//   f : RR^+ -> NN \
+//   f(epsilon) = min{N in NN | forall N < n, m in NN ds abs(a_n - a_m) < epsilon}
+// $
+
+// כעט נגדיר את סדרת המקטעים
+
 // נניח שכל סדרת קושי מתכנסת, תהי
 // $emptyset != A subset.eq RR$
 // חסומה מלעיל.
@@ -546,3 +830,5 @@
 // $n in NN$,
 // בנוסף תהי
 // $0 < epsilon$,
+
+// +
