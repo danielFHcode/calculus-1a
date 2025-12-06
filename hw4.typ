@@ -47,7 +47,7 @@
 // #show link: set text(fill: blue)
 
 #maketitle(
-  title: "חדו\"א א - תרגיל בית 3",
+  title: "חדו\"א א - תרגיל בית 4",
   authors: ("דניאל פ.ח.",),
   date: fmt(datetime(day: 21, month: 11, year: 2025), locale: "he"),
 )
