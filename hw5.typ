@@ -628,8 +628,8 @@
     = & sum_(k=0)^n sin(alpha + beta k) sin(beta\/2) \
     = & sum_(k=0)^n 1/2 cos(alpha + (2k-1)/2 beta) - 1/2 cos(alpha + (2k+1)/2 beta) \
     = & 1/2 cos(alpha -1/2 beta) - 1/2 cos(alpha + (2n+1)/2 beta) \
-    = & -2sin(alpha + (n beta)/2) sin(-((n+1)beta)/2) \
-    = & 2sin(((n+1)beta)/2) sin(alpha + (n beta)/2) \
+    = & -sin(alpha + (n beta)/2) sin(-((n+1)beta)/2) \
+    = & sin(((n+1)beta)/2) sin(alpha + (n beta)/2) \
   $
 
 + #set enum(numbering: "(א)")
