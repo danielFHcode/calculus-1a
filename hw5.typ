@@ -243,37 +243,71 @@
     $(a_n)_(n in NN)$
     כזו.
 
-+ ידוע כי קיים
-  $ell in RR$
-  כך ש-$a_(2n) xarrow(n --> infinity) ell$,
-  מכאן נובע ישירות שלכל
-  $1 < p$
-  זוגי מתקיים
-  $a_(p n) xarrow(n --> infinity) ell$
-  כיוון ש-$(a_(p n))_(n in NN)$
-  הינה תת סדרה של
-  $(a_(2n))_(n in NN)$.
-  בנוסף עבור
-  $1 < p$
-  אי זוגי מתקיים ש-$(a_(2p n))_(n in NN)$
-  הינה תת סדרה של
++
+   // ידוע כי קיים
+  // $ell in RR$
+  // כך ש-$a_(2n) xarrow(n --> infinity) ell$,
+  // מכאן נובע ישירות שלכל
+  // $1 < p$
+  // זוגי מתקיים
+  // $a_(p n) xarrow(n --> infinity) ell$
+  // כיוון ש-$(a_(p n))_(n in NN)$
+  // הינה תת סדרה של
+  // $(a_(2n))_(n in NN)$.
+  // בנוסף עבור
+  // $1 < p$
+  // אי זוגי מתקיים ש-$(a_(2p n))_(n in NN)$
+  // הינה תת סדרה של
+  // $(a_(p n))_(n in NN)$
+  // ולכן, כיוון שידוע כי קיים ל-$(a_(p n))_(n in NN)$
+  // גבול,
+  // $lim_(n -> infinity) a_(2p n) = lim_(n -> infinity) a_(p n)$,
+  // וכפי שהראינו קודם מתקיים
+  // $lim_(n -> infinity) a_(2p n) = lim_(n -> infinity) a_(2 n) = ell$
+  // ולכן סה"כ
+  // $a_(p n) xarrow(n --> infinity) ell$.
+  // תהי
+  // $(a_n_k)_(k in NN)$
+  // תת סדרה של
+  // $(a_n)_(n in NN)$,
+  // // תהי
+  // // $(a_n_k)_(k in NN) in hat(P)(a_n)_(n in NN)$,
+  // נניח בשלילה כי
+
+   // $
+  //   forall 1 < p in NN ds exists k in NN ds p cancel(|) n_k
+  // $
+
+  נסתכל על:
+
+  $
+    a_n = cases(
+      n & #h(1.5em) mtext("ראשוני") n,
+      1 & #h(1.5em) mtext("אחרת"),
+    ) #h(2em) forall n in NN
+  $
+
+  אז עבור
+  $1 < p in NN$
+  מתקיים
+  $a_(p n) = 1 xarrow(n --> infinity) 1$
+  ולכן
   $(a_(p n))_(n in NN)$
-  ולכן, כיוון שידוע כי קיים ל-$(a_(p n))_(n in NN)$
-  גבול,
-  $lim_(n -> infinity) a_(2p n) = lim_(n -> infinity) a_(p n)$,
-  וכפי שהראינו קודם מתקיים
-  $lim_(n -> infinity) a_(2p n) = lim_(n -> infinity) a_(2 n) = ell$
-  ולכן סה"כ
-  $a_(p n) xarrow(n --> infinity) ell$.
-  תהי
-  $(a_n_k)_(k in NN) in hat(P)(a_n)_(n in NN)$,
-  נניח בשלילה כי לכל
-  $1 < p$,
-  $(a_(p n))_(n in NN)$
-  אינה תת סדרה של
-  $(a_n_k)_(k in NN)$,
-  אז
-  ${n_k}_(k in NN) \\ {p n}_(n in NN) != emptyset$
+  מתכנסת. אבל בנוסף אם נסתכל על הסדרה של הראשונים
+  $(n_k)_(k in NN)$
+  אז מתקיים
+  $a_n_k = n_k xarrow(k --> infinity) infinity$
+  ולכן ל-$(a_n)_(n in NN)$
+  יש 2 גבולות חלקיים שונים ולכן היא לא מתכנסת.
+// לכל
+// $1 < p$,
+// $(a_(p n))_(n in NN)$
+// אינה תת סדרה של
+// $(a_n_k)_(k in NN)$,
+// כלומר
+
+// אז
+// ${n_k}_(k in NN) \\ {p n}_(n in NN) != emptyset$
 
 + תהי
   $(a_n)_(n in NN)$
