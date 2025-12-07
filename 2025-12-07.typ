@@ -20,6 +20,16 @@
   set page(fill: black)
   ////
   it
+} else if sys.inputs.at("env", default: none) == "mobile" {
+  set text(size: 2.8em)
+  show math.equation.where(block: true): set text(size: 0.5em)
+  show math.equation.where(block: true): strong
+  set par(justify: false, leading: 1em)
+  set enum(indent: 0.5em)
+  set terms(hanging-indent: 0.5em)
+  set page(margin: (y: 2em, x: 2em), number-align: top + end, numbering: "(1)")
+  it
+  v(5em)
 } else { it }
 
 
@@ -413,7 +423,7 @@ $cal(U) inter A != emptyset$.
 $ell in RR union {plus.minus infinity}$,
 #text(fill: red)[...]
 
-= פונקציה של מסתנה ממשי
+= פונקציה של משתנה ממשי
 
 בכל הדיון הבא
 $cal(f) : A -> RR$:
@@ -436,3 +446,455 @@ $cal(f) : A -> RR$:
   אז
   $cal(f)(x) <= cal(f)(y)$.
   נגדיר עולה ממש, יורדת, יורדת ממש בדומה לסדרות.
+
+== תרגיל
+
+תהא
+$A subset.eq RR$,
+תהאנה
+$f,g : A -> RR$
+חסומות, אז
+$f + g$
+חסומה ומתקיים:
+
+$
+  inf f + inf g <= inf (f + g) <= sup (f + g) <= sup f + sup g
+$
+
+/ הוכחה\::
+  לכל
+  $x in A$,
+  $f(x) <= sup f, g(x) <= sup g$
+  לכן
+  $f(x) + g(x) <= sup f + sup g$,
+  ומכאן
+  $sup f + sup g$
+  חסם מלעיל של
+  $f + g$
+  לכן
+  $sup(f + g) <= sup f + sup g$.
+
+== גבולות של פונקציות
+
+תהא
+$f : A subset.eq RR -> RR$,
+תהא
+$x_0 in RR$
+נקודת הצטברות של
+$A$
+ויהי
+$ell in RR$.
+נאמר כי
+$ell$
+הוא גבול של
+$f$
+ב-$x_0$
+כאשר לכל
+$0 < epsilon$
+קיים
+$0 < delta$
+כך שלכל
+$x in AA$
+אם
+$0 < abs(x-x_0) < delta$
+אז
+$abs(f(x) - ell) < epsilon$.
+
+== טענה
+
+תהא
+$cal(f) : A subset.eq RR -> RR$,
+תהא
+$x_0 in RR$
+נקודת הצטברות של
+$A$.
+יהיו
+$ell, m in RR$.
+אם
+$ell$
+גבול של
+$f$
+ב-$x_0$
+וגם
+$m$
+גבול של
+$f$
+ב-$e_0$
+אז
+$ell = m$.
+
+מכאן נאכל לסמן:
+$lim_(x -> x_0) f(x) = ell$.
+
+== דוגמא
+
+פונקציית דיריכלה
+$cal(D) : RR -> RR$
+המוגדרת ע"י:
+
+$
+  cal(D)(x) = cases(
+    1 & #h(1.5em) x in QQ,
+    0 & #h(1.5em) x in.not QQ,
+  ) #h(2em) forall x in RR
+$
+
+/ טענה\::
+  לכל
+  $x_0 in RR$,
+  אין ל-$cal(D)$
+  גבול ב-$x_0$.
+
+/ הוכחה\::
+  יהי
+  $x_0 in RR$,
+  יהי
+  $ell in RR$,
+  נתבונן ב-$epsilon = 1/2$.
+  יהי
+  $0 < ell$.
+  בקטע
+  $(x_0, x_0 + delta)$
+  יש מספר רציונלי
+  $x$
+  ומספר אי רציוננלי
+  $y$.
+
+  $1 = abs(cal(D)(x) - cal(D)(y)) <= abs(cal(D)(x)-ell) + abs(cal(D)(y)-ell)$
+  לכן
+  $abs(cal(D)(x) - ell) >= 1/2$
+  או
+  $abs(cal(D)(y)) - ell >= 1/2$.
+  לכן
+  $ell$
+  אינו גבול של
+  $cal(D)$
+  ב-$x_0$.
+
+== דוגמא
+
+נגדיר
+$f : RR -> RR$
+על ידי
+$forall x in RR ds f(x) = x dot cal(D)(x)$
+כאשר
+$cal(D)$
+פונקציית דיריכלה. יהי
+$x_0 in RR$.
+הראו כי ל-$f$
+יש גבול ב-$x_0$
+אם"ם
+$x_0 = 0$.
+
+/ הוכחה\::
+  / ימין\::
+    נניח
+    $x_0 = 0$,
+    יהי
+    $0 < epsilon$,
+    נתבונן ב-$delta = epsilon$,
+    יהי
+    $x in RR$,
+    נניח
+    $0 < abs(x - 0) < delta$,
+    $abs(cal(D)(x)) <= 1$
+    לכן
+    $abs(f(x) - 0) = abs(x dot cal(D)(x)) = abs(x) dot abs(cal(D)(x)) < delta dot 1 = epsilon$
+    לכן
+    $lim_(x -> 0) f(x) = 0$.
+  / שמאל\::
+    נניח
+    $x_0 != 0$,
+    יהי
+    $ell in RR$.
+    נתבונן ב-$epsilon = abs(x_0)/2$,
+    $x_0 != 0$
+    לכן
+    $0 < epsilon$.
+    יהי
+    $0 < delta$,
+    בקטע
+    $(x_0, x_0+delta)$
+    יש
+    $x$
+    רציונלי ויש
+    $y$
+    אי רצינלי, ומתקיים:
+
+    $
+      abs(x) = abs(f(y) - f(x)) <= abs(f(y)-ell) + abs(f(x)-ell)
+    $
+
+    בקטע
+    $(x_0 - delta, x_0)$
+    יש
+    $a$
+    רציונלי ויש
+    $b$
+    אי רציונלי, ומתקיים:
+
+    $
+      abs(a) = abs(f(b) - f(a)) = abs(f(b) - ell) + abs(f(a) - ell)
+    $
+
+    $max{abs(a), abs(x)} >= abs(x_0)$
+    ולכן
+    $max{abs(f(a)-ell), abs(f(b)-0), abs(f(x)-0), abs(f(y)-ell)} >= abs(x_0)/2$
+    ולכן
+    $ell$
+    אינו גבול של
+    $f$
+    ב-$x_0$.
+
+== הגדרה
+
+פונקציית רימן:
+
+$
+  cal(R) : RR -> RR \
+  cal(R)(x) = cases(
+    1/n & #h(1.5em) x = m/n mtext("זרים כך ש-") m in ZZ\,n in NN^+ mtext("קיימים (ויחידים)"),
+    0 & #h(1.5em) mtext("אחרת")
+  ) #h(2em) forall x in RR
+$
+
+/ לדוגמא\::
+  $cal(R)(1 1/2) = 1/2, space cal(R)(6/12) = 1/3$
+
+== טענה
+
+לכל
+$x_0 in RR$,
+$lim_(x -> x_0) cal(R)(x) = 0$.
+
+/ הוכחה\::
+  יהי
+  $x_0 in RR$,
+  נניח בה"כ
+  $x in [0,1]$,
+  יהי
+  $0 < epsilon$,
+  אז קיים
+  $N in NN$
+  כך ש-$1/N < epsilon$.
+
+  $
+    A = {x in [0,1]\\{x_0} | R(x) >= 1/N} subset.eq {m/n | n in NN^+, m in NN, m <= n <= N}
+  $
+
+  לכן
+  $A$
+  סופית. נסמן
+  $delta = min{abs(x_0-x) : x in A}$,
+  אז
+  $0 < delta$,
+  נתבונן ב-$delta$,
+  יהי
+  $x in [0,1]$,
+  נניח
+  $0 < abs(x-x_0) < delta$,
+  אז
+  $x in.not A$
+  ולכן
+  $abs(cal(R)(x)-0) < 1/N = epsilon$
+  לכן
+  $lim_(x -> x_0) cal(R(x)) = 0$.
+
+== טענה
+
+תהא
+$f : A subset.eq RR -> RR$
+ותהא
+$x_0 in RR$
+נקודת הצטברות של
+$A$.
+נניח כי עבור כל סדרה
+$(a_n)_(n in NN)$
+המקיימת:
+
++ לכל
+  $n in NN$,
+  $a_n in AA$.
++ לכל
+  $n in NN$,
+  $a_n != x_0$.
++ $lim_(n -> infinity) a_n = x_0$.
+
+מתקיים ש-$(f(a_n))_(n in NN)$
+סדרה מתכנסת.
+
+אז קיים
+$ell in RR$
+כך שלכל סדרה
+$(a_n)_(n in NN)$
+המקיימת את תנאים 1-3,
+$lim_(n -> infinity) f(a_n) = ell$.
+
+פורמלית (למטרות הבהרת סדר פעולות חשבון),
+אם נגדיר:
+
+$
+  phi_1(a_n)_(n in NN) := forall n in NN ds a_n in A \
+  phi_2(a_n)_(n in NN) := forall n in NN ds a_n != x_0 \
+  phi_3(a_n)_(n in NN) := a_n xarrow(n --> infinity) x_0 \
+$
+
+אז:
+
+#[
+  #set text(size: 0.9em)
+  $
+    &forall (a_n)_(n in NN) ds (phi_1(a_n)_(n in NN) and phi_2(a_n)_(n in NN) and phi_3(a_n)_(n in NN) => mtext("מתכנסת") (f(a_n))_(n in NN)) \
+    &#h(2em) ==> exists ell in RR ds forall (a_n)_(n in NN) ds (phi_1(a_n)_(n in NN) and phi_2(a_n)_(n in NN) and phi_3(a_n)_(n in NN) => lim_(n -> infinity) f(a_n) = ell)
+  $
+]
+
+== קריטריון היינה
+
+תהא
+$f : A subset.eq RR -> RR$,
+תהא
+$x_0 in RR$
+נקודת הצטברות של
+$A$.
+ל-$f$
+יש גבול ב-$x_0$
+אם"ם לכל סדרה
+$(a_n)_(n in NN)$,
+אם
+$(a_n)_(n in NN)$
+מקיימת את תנאים 1-3 מהטענה הקודמת אז
+$(f(a_n))_(n in NN)$
+מתכנסת.
+
+/ הוכחה\::
+  / שמאל\::
+    נניח של-$f$
+    יש גבול ב-$x_0$
+    ונסמנו
+    $ell$,
+    תהא
+    $a_n$
+    סדרה,
+    נניח כי:
+
+    + לכל
+      $n in NN$,
+      $a_n in AA$.
+    + לכל
+      $n in NN$,
+      $a_n != x_0$.
+    + $lim_(n -> infinity) a_n = x_0$.
+
+    יהי
+    $0 < epsilon$,
+    קיים
+    $0 < delta$
+    כך שלכל
+    $x in A$,
+    אם
+    $0 < abs(x-x_0) < delta$
+    אז
+    $abs(f(x)-ell) < epsilon$.
+    $lim_(n -> infinity) a_n = x_0$
+    לכן קיים
+    $N in NN$
+    כל שלכל
+    $N <= n$,
+    $abs(a_n-x_n) < delta$.
+    נתבונן ב-$N$,
+    יהי
+    $N <= n$.
+    אז
+    $a_n in A$
+    וכם
+    $a_n != x_0$.
+    $0 < abs(x_n - x_0) < delta$
+    לכן
+    $abs(f(a_n) - ell) < epsilon$
+    לכן
+    $(f(a_n))_(n in NN)$
+    מתכנסת.
+  / שמאל\::
+    נניח כי לכל סדרה
+    $(a_n)_(n in NN)$
+    המקיימת את התנאים 1-3 מהטענה הקודמת,
+    $(f(a_n))_(n in NN)$
+    מתכנסת. מהטענה הקודמת קיים
+    $ell in RR$,
+    כך שלכל סדרה
+    $(a_n)_(n in NN)$,
+    אם
+    $(a_n)_(n in NN)$
+    מקיימת את התנאים 1-3 מהטענה הקודמת אז
+    $lim_(n -> infinity) f(a_n) = ell$.
+    נניח בשלילה
+    $lim_(x -> x_0) f(x) != ell$,
+    אז קיים
+    $0 < epsilon$
+    כך שלכל
+    $0 < delta$
+    קיים
+    $x in A$
+    כך ש-$0 < abs(x-x_0) < delta$
+    וגם
+    $epsilon <= (f(n) - ell)$.
+    לכל
+    $n in NN$,
+    קיים
+    $a_n in A$
+    כך ש-$0 < abs(a_n - x_0) < 1/n$
+    וגם
+    $epsilon <= (f(a_n) - ell)$.
+    לכל
+    $n in NN$,
+    $a_n != x_0, a_n in A$.
+    כמוכן
+    $lim_(n -> infinity) a_n = x_0$
+    אבל לכל
+    $n in NN$,
+    $epsilon <= (f(a_n)-ell)$
+    לכן
+    $lim_(n -> infinity) f(a_n) != ell$
+    שזו סתירה.
+
+== טענה
+
+נגדיר
+$f : RR\\{0} -> RR$
+על ידי
+$forall x in RR\\{0} ds f(x) = 1/x$
+אז ל-$f$
+אין גבול ב-$0$.
+
+/ הוכחה\::
+  נגדיר
+  $forall n in NN ds a_n = (-1)^n/n$,
+  אז לכל
+  $n in NN$,
+  $a_n in RR\\{0}$
+  וגם
+  $a_n != 0$,
+  לכן
+  $lim_(n -> infinity) a_n = 0$.
+  אבל לסדרה
+  $(f(a_n))_(n in NN) = (-1)^n n$
+  אין גבול.
+
+== טענה
+
+נגדיר
+$f : RR\\{0} -> RR$
+על ידי
+$forall x in RR\\{0} ds f(x) = sin 1/x$,
+אז ל-$f$
+אין גבול.
+
+/ הוכחה\::
+  נגדיר
+  $forall n in NN ds a_n = 1/(pi n), b_n = 1/(pi n + pi/2)$,
+  אז
+  $(a_n)_(n in NN), (b_n)_(n in NN)$
+  מקיימות את התנאים 1-3 אבל לכל
+  $n in NN$,
+  $f(a_n) = 0, f(a_n) = (-1)^n$.

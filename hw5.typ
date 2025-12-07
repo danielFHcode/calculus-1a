@@ -470,7 +470,7 @@
       $
 
     אז
-    $liminf_(n -> infinity) a_n = ell$.
+    $liminf_(n -> infinity) a_n = L$.
 
     / הוכחה\::
       נניח את הקרירטיון, תהי
