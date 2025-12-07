@@ -91,7 +91,8 @@
 // ]
 
 + #set enum(numbering: "(א)")
-  + $
+  + #show: block.with(width: 100%)
+    $
       2
       <= root(n, 2^n)
       <= root(n, 4^2 + 2^n)
