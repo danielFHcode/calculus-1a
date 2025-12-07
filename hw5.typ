@@ -527,12 +527,30 @@
       וסה"כ
       $abs(a_n - L) < epsilon$.
       לכן
-      $L in P(a_n)_(n in NN)$
-      מה שאומר שקיימת תת סדרה
-      $(a_m_k)_(k in NN)$
-      של
-      $(a_n)_(n in NN)$
-      כך ש-$a_m_k xarrow(k --> infinity) L$.
+      $L in P(a_n)_(n in NN)$.
+      // מה שאומר שקיימת תת סדרה
+      // $(a_m_k)_(k in NN)$
+      // של
+      // $(a_n)_(n in NN)$
+      // כך ש-$a_m_k xarrow(k --> infinity) L$.
+      //
+      // תהי תת סדרה
+      // $(a_n_k)_(k in NN)$
+      // נניח בשלילה כי קיימת תת סדרה
+      // $(a_n_k)_(k in NN)$
+      // של
+      // $(a_n)_(n in NN)$
+      // המתכנסת ל-$ell in RR$
+      // כך ש-$ell < L$,
+      // אז
+      // $0 < L - ell$
+      // ולכן לפי הנתון החל מ-$n$
+      // מסויים
+      // $ell < a_n$,
+      // בנוסף מהגדרת גבול מתקיים
+      // $2ell - L < a_n < L$
+      // החל מ-$n$
+      // מסויים.
       תהי
       $ell in P(a_n)_(n in NN)$,
       אז קיימת תת סדרה
@@ -540,15 +558,47 @@
       של
       $(a_n)_(n in NN)$
       כך ש-$a_n_k xarrow(k --> infinity) ell$,
+      נניח כי
+      $ell <= L$,
+      אז נוכיח
+      $ell = L$
+      בכך שנוכיח
+      $a_n_k xarrow(k --> infinity) L$:
       תהי
       $0 < epsilon$,
-      אז קיימים
-      $K_1, K_2 in NN$
-      כך שלכל
-      $K_1 < k_1, K_2 < k_2$
-      מתקיים
-      $abs(a_n_k_1-ell), space abs(a_m_k_2-L) < epsilon$
-      #text(fill: red)[...]
+      מהנתון
+      $L - epsilon < a_n_k$
+      החל מ-$k$
+      מסויים, ובנוסף מהגדרת גבול
+      $ell - epsilon < a_n_k < ell + epsilon <= L + epsilon$
+      החל מ-$k$
+      מסויים, סה"כ
+      $L - epsilon < a_n_k < L + epsilon$
+      החל מ-$k$
+      מסויים, וסיימנו. סה"כ
+      $L <= ell$
+      ולכן
+      $min P(a)_(n in NN) = L$
+      כלומר
+      $L = liminf_(n -> infinity) a_n$.
+// נוכיח כי
+// $L <= ell$
+// בכך שנוכיח
+// $0 <= lim_(k -> infinity) a_n_k - L$
+// בכך שנוכיח ש-$(a_n_k - L)_(k in NN)$
+// חסומה מלמטה ע"י
+// $0$
+// המ"מ: מהנתון ידוע כי
+// $$
+// תהי
+// $0 < epsilon$,
+// אז קיימים
+// $K_1, K_2 in NN$
+// כך שלכל
+// $K_1 < k_1, K_2 < k_2$
+// מתקיים
+// $abs(a_n_k_1-ell), space abs(a_m_k_2-L) < epsilon$
+// #text(fill: red)[...]
 
 + $(b_n)_(n in NN)$
   מתכנסת לכן קיים לה גבול
@@ -573,7 +623,7 @@
   $sum_(n=0)^infinity a_n b_n$
   מתכנס.
 
-+
++                                                   
 
 + #set enum(numbering: "(א)")
   + נסתכל על
