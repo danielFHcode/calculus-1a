@@ -538,7 +538,8 @@ $a_n, b_n$
 סדרות, נניח כי:
 
 + $b_n$
-  מונוטונית יורדת.
+  מונוטונית יורדת
+  #text(fill: color.fuchsia.darken(25%))[וחסומה].
 
 + $sum_(n=0)^infinity a_n$
   מתכנס.
