@@ -11,6 +11,11 @@
 #let mtext = text.with(font: "David CLM")
 #let משל = [#h(1fr) $qed$]
 
+#show: {
+  import "shared/env.typ": env
+  env
+}
+
 #maketitle(
   title: "חדו\"א א",
   authors: ("דניאל פ.ח.",),
