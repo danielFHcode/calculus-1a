@@ -28,22 +28,26 @@
   // inset: (y: 2em),
 )
 #show math.equation: set text(lang: "en")
-#show: it => if sys.inputs.at("x-preview", default: none) != none or sys.inputs.at("env", default: none) == "dev" {
-  set page(numbering: none, height: auto)
-  // show enum.item: it => enum.item(
-  //   context {
-  //     // set heading(offset: heading.offset + 1)
-  //     // place(hide(heading(numbering: (..nums) => [תרגיל #numbering("1.א.i", ..nums)])[]))
-  //     it.body
-  //   },
-  // )
-  set text(size: 1.4em)
-  ////
-  set text(fill: white)
-  set page(fill: black)
-  ////
-  it
-} else { it }
+// #show: it => if sys.inputs.at("x-preview", default: none) != none or sys.inputs.at("env", default: none) == "dev" {
+//   set page(numbering: none, height: auto)
+//   // show enum.item: it => enum.item(
+//   //   context {
+//   //     // set heading(offset: heading.offset + 1)
+//   //     // place(hide(heading(numbering: (..nums) => [תרגיל #numbering("1.א.i", ..nums)])[]))
+//   //     it.body
+//   //   },
+//   // )
+//   set text(size: 1.4em)
+//   ////
+//   set text(fill: white)
+//   set page(fill: black)
+//   ////
+//   it
+// } else { it }
+#show: {
+  import "shared/env.typ": env
+  env
+}
 // #show link: set text(fill: blue)
 
 #maketitle(
